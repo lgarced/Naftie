@@ -30,11 +30,6 @@ const About = () => {
       </h3>
       <div className="app__profiles">
         <motion.div
-          // whileInView={{ opacity: 1 }}
-          // whileHover={{
-          //   scale: 0.75,
-          //   transition: { duration: 0.15 },
-          // }}
           animate={{
             scale: [1, 2, 2, 1, 1],
             rotate: [0, 0, 180, 180, 0],

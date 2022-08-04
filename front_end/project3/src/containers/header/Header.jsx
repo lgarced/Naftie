@@ -9,7 +9,9 @@ import { AppWrap } from "../../wrapper";
 const Header = () => (
   <div className="app__header app__flex">
     <motion.div>
-
+        <p>
+            This is paragraph that is not visible on the screen.Maybe? 
+        </p>
     </motion.div>
  </div>
 )

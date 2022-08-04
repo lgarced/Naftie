@@ -1,30 +1,20 @@
 import React from "react";
-import {About, Footer,Header} from "./containers";
-import{ SocialMedia, Navbar} from "./components";
+import {About, Footer ,Header} from "./containers";
+import { Navbar } from "./components";
+// import{ SocialMedia} from "./components";
 // import Motion from 'framer-motion';
-import './App.css';
+// import './App.scss';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img  className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-            <Navbar />    
-            <Header />
-            <About />
-            <Footer />
-            <SocialMedia/>   
-        </a>
-      </header>
+    <div className="app">
+      <Navbar />
+      <Header />
+      <About />
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
 

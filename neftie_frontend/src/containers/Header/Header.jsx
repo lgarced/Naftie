@@ -3,7 +3,7 @@ import { motion } from "framer-motion/dist/framer-motion";
 
 import { AppWrap } from "../../wrapper";
 // import { images } from "../../constants";
-// import "./Header.scss";
+import "./Header.css";
 
 
 const Header = () => (

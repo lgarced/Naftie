@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion/dist/framer-motion";
-
 import { AppWrap, MotionWrap } from "../../wrapper";
-// import "./About.scss";
+import "./About.css";
+
 // import { urlFor, client } from "../../client";
 // import { images } from "../../constants";
 

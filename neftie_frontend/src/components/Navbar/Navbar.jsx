@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import "./Navbar.scss";
+import '../../Styles/Navbar.css'; 
 // import { HiMenuAlt4, HiX } from "react-icons/hi";
 import { motion, AnimatePresence} from "framer-motion/dist/framer-motion";
 // import { images } from "../../constants";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import "./Navbar.scss";
 // import { HiMenuAlt4, HiX } from "react-icons/hi";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence} from "framer-motion/dist/framer-motion";
 // import { images } from "../../constants";
 
 const Navbar = () => {

@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import '../../Styles/Navbar.css'; 
 // import { HiMenuAlt4, HiX } from "react-icons/hi";
 import { motion, AnimatePresence} from "framer-motion/dist/framer-motion";
-// import { images } from "../../constants";
+import { images } from "../../constants";
 
 const Navbar = () => {
   const [toogle, setToggle] = useState(false);
   return (
     <nav className="app__navbar">
       <div className="app__navbar_logo">
-        {/* <img src={}alt="Logo Liberato's website" /> */}
+        <img src={images.logo}alt="Neftie website logo" />
       </div>
       <ul className="app__navbar_links">
-        {["home", "about", "contact"].map((item) => (
+        {["home", "posts", "messaging", "apps", "market"].map((item) => (
           <li className="app_flex p-text" key={`link-${item}`}>
             <div />
             <a href={`#${item}`}> {item} </a>

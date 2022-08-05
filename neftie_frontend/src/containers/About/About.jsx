@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion/dist/framer-motion";
 import { AppWrap, MotionWrap } from "../../wrapper";
+import ReactPlayer from 'react-player'
 import "./About.css";
+import { images } from "../../constants";
 
 // import { urlFor, client } from "../../client";
-// import { images } from "../../constants";
 
 const About = () => {
 //   const [abouts, setAbouts] = useState([]);
@@ -20,12 +21,20 @@ const About = () => {
   return (
     <>
       <h2 className="head-text">
-        NAFTIE is dedicated to providing the best quality of service to our users while protecting their data and privacy.
+        NAFTIE is dedicated to providing the best quality of service to our
+        users while protecting their data and privacy.
       </h2>
       <h3>
-        <br />{" "}
+        <br />
+        <motion.div>
+          <div className="App">
+            <ReactPlayer url="logovid" type="video/mp4" playing />
+            <video src={images.logovid} type="video/mp4" controls></video>
+          </div>
+        </motion.div>
         <span>
-          NAFTIE is a social media app where you can do more than just share. Join us Today!
+          NAFTIE is a social media app where you can do more than just share.
+          Join us Today!
         </span>
       </h3>
       <div className="app__profiles">
@@ -44,7 +53,6 @@ const About = () => {
           }}
           className="app__profile-item"
         >
-          {/* <img src={images.mechina} alt="About" /> */}
         </motion.div>
       </div>
     </>

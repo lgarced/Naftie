@@ -7,10 +7,10 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: #a19add;
+  background-color: #719191;
   border-radius: 3rem;
   padding: 2rem;
-  margin-top: 10rem;
+  margin-top: auto;
 }
 
 .app__profiles {
@@ -60,5 +60,12 @@
   .app__profile-item img {
     height: 30rem;
   }
+}
+
+.head-text {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 2rem;
 }
 /*# sourceMappingURL=About.css.map */

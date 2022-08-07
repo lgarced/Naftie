@@ -1,15 +1,15 @@
-// #home {
-//     position: relative;
-//     background-size: cover;
-//     background-position: center;
-//     background-repeat: repeat;
+#home {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
 
-//     // disable the default padding styles
-//     .app__wrapper {
-//         padding: 0;
+    // disable the default padding styles
+    .app__wrapper {
+        padding: 0;
 
-//         .copyright {
-//             display: none;
-//         }
-//     }
-// }
+        .copyright {
+            display: none;
+        }
+    }
+}

@@ -5,7 +5,6 @@ const SocialMedia = () => (
   <div className="app__social">
     <div>
       <a href="">
-        {" "}
          <FaBeer />
       </a>
     </div>

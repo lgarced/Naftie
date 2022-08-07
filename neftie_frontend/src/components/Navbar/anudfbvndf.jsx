@@ -69,3 +69,19 @@
 // };
 
 // export default Navbar;
+
+
+
+
+            //   <p>Nothing</p>;
+            //   {
+            //     ["home", "About", "messages", "market", "apps"].map((item) => (
+            //       <Link
+            //         to={`/${item}`}
+            //         className="app_flex p-text"
+            //         key={`link-${item}`}
+            //       >
+            //         {item}
+            //       </Link>
+            //     ));
+            //   }

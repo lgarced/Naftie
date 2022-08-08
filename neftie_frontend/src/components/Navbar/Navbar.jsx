@@ -8,6 +8,7 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { Cancel, Mail, Notifications, Search } from "@material-ui/icons";
 import  React, { useState } from "react";
 import { images } from "../../constants";
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
     justifyContent: "space-between",
+
   },
   logoLg: {
     display: "none",
@@ -74,12 +76,12 @@ const Navbar = () => {
   return (
     <AppBar position="fixed">
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h6" className={classes.logoLg}>
-          Neftie
-        </Typography>
-        <Typography variant="h6" className={classes.logoSm}>
-          Naftie
-        </Typography>
+        <Avatar
+          alt="Remy Sharp"
+          src={images.logo}
+          sx={{ width: 100, height: 56 }}
+        />
+        <Typography variant="h6" className={classes.logoLg}></Typography>
         <div className={classes.search}>
           <Search />
           <InputBase placeholder="Search..." className={classes.input} />
@@ -96,7 +98,9 @@ const Navbar = () => {
           <Badge badgeContent={2} color="secondary" className={classes.badge}>
             <Notifications />
           </Badge>
-          <Avatar alt="Remy Sharp" src={images.logo} />
+          <Badge badgeContent={0} color="secondary" className={classes.badge}>
+            <SettingsIcon />
+          </Badge>
         </div>
       </Toolbar>
     </AppBar>

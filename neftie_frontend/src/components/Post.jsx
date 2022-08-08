@@ -33,8 +33,7 @@ const Post = ({ img, title }) => {
             {title}
           </Typography>
           <Typography variant="body2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
-            consectetur earum est.
+            
           </Typography>
         </CardContent>
       </CardActionArea>

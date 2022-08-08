@@ -1,11 +1,4 @@
 import React from "react";
-// import {About, Footer 
-//       ,Header, Apps
-//       , Market, Messages} from "./containers";
-// import { Navbar} from "./components";
-// import Signup from "./components/signup/Signup";
-// import Login from "./components/login/Login";
-// import{ SocialMedia} from "./components";
 import { Route, Routes } from "react-router-dom";
 import './App.css';
 import { Grid, makeStyles } from "@material-ui/core";
@@ -47,7 +40,13 @@ const App = () => {
 
 export default App;
 
-
+// import {About, Footer 
+//       ,Header, Apps
+//       , Market, Messages} from "./containers";
+// import { Navbar} from "./components";
+// import Signup from "./components/signup/Signup";
+// import Login from "./components/login/Login";
+// import{ SocialMedia} from "./components";
 // const App = () => {
 //   return (
 //     <div className="app">

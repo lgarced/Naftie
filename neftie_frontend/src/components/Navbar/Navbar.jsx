@@ -8,7 +8,8 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import SettingsIcon from "@mui/icons-material/Settings";
+import PersonIcon from "@mui/icons-material/Person";
+import { ToggleButton } from "@mui/material"; 
 import { Cancel, Mail, Notifications, Search } from "@material-ui/icons";
 import  React, { useState } from "react";
 import { images } from "../../constants";
@@ -98,9 +99,9 @@ const Navbar = () => {
           <Badge badgeContent={2} color="secondary" className={classes.badge}>
             <Notifications />
           </Badge>
-          <Badge badgeContent={0} color="secondary" className={classes.badge}>
-            <SettingsIcon />
-          </Badge>
+            <Badge badgeContent={8} color="secondary" className={classes.badge}>
+              <PersonIcon />
+            </Badge>
         </div>
       </Toolbar>
     </AppBar>

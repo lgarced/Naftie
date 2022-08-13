@@ -34,3 +34,9 @@
 
 ## ⏱️ Workflow Platforms [🔝](#welcome)
   <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white" />  
+
+
+// DO NOT USE UNLESS CONFIRMED *** 
+--openssl-legacy-provider
+--openssl-legacy-provider
+BELONG IN PACKAGE.JSON BEFORE THE START AND BUILD SCRIPTS //

@@ -1,5 +1,5 @@
 import React from "react";
-// import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import './App.css';
 import { Grid, makeStyles } from "@material-ui/core";
 import Add from "./components/Add";
@@ -7,7 +7,7 @@ import Feed from "./components/Feed";
 import Leftbar from "./components/Leftbar";
 import Navbar from "./components/Navbar/Navbar";
 import Rightbar from "./components/Rightbar";
-
+import { SignIn } from "./components";
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   return (
-    <div>
+    <div>    
       <Navbar />
       <Grid container>
         <Grid item sm={2} xs={2}>

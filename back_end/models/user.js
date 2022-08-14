@@ -23,6 +23,12 @@ const userSchema = Schema(
       type: Date,
       default: new Date(),
     },
+    posts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "postMessage",
+      },
+    ],
   },
   {
     toJSON: {
@@ -39,11 +45,11 @@ userSchema.pre("save", async function (next) {
   }
 
   next()
-});
+})
 
 userSchema.methods.isCorrectPassword = async function (password) {
-  return bcrypt.compare(password, this.password);
-};
+  return bcrypt.compare(password, this.password)
+}
 
 var User = model("User", userSchema)
 

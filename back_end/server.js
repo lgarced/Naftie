@@ -14,7 +14,7 @@ app.use(cors());
 app.use("/posts", postRoutes);
 
 const CONNECTION_URL =
-  "mongodb+srv://neftie:;
+ process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/neftie'; 
 const PORT = process.env.PORT || 5000;
 
 mongoose

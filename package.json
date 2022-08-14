@@ -2,9 +2,9 @@
   "name": "naftie",
   "version": "1.0.0",
   "description": "",
-  "main": "server/server.js",
+  "main": "back_end/server.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node back_end/server.js",
     "develop": "concurrently \"cd back_end && npm run watch\" \"cd neftie_frontend && npm start\"",
     "install": "cd back_end && npm i && cd ../neftie_frontend && npm i",
     "seed": "cd back_end && npm run seed",

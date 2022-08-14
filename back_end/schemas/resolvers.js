@@ -48,11 +48,11 @@ const resolvers = {
 
       return { token, user }
     },
-    addpost: async (parent, { postText }, context) => {
+    addpostMessage: async (parent, { message }, context) => {
       if (context.user) {
-        const post = await post.create({
-          postText,
-          postAuthor: context.user.username,
+        const post = await postMessage.create({
+          message,
+          creator: context.user.username,
         })
 
         await User.findOneAndUpdate(
@@ -66,7 +66,7 @@ const resolvers = {
     },
     addComment: async (parent, { postId, commentText }, context) => {
       if (context.user) {
-        return post.findOneAndUpdate(
+        return postMessage.findOneAndUpdate(
           { _id: postId },
           {
             $addToSet: {
@@ -81,11 +81,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!")
     },
-    removepost: async (parent, { postId }, context) => {
+    removepostMessage: async (parent, { postId }, context) => {
       if (context.user) {
-        const post = await post.findOneAndDelete({
+        const post = await postMessage.findOneAndDelete({
           _id: postId,
-          postAuthor: context.user.username,
+          creator: context.user.username,
         })
 
         await User.findOneAndUpdate(
@@ -99,7 +99,7 @@ const resolvers = {
     },
     removeComment: async (parent, { postId, commentId }, context) => {
       if (context.user) {
-        return post.findOneAndUpdate(
+        return postMessage.findOneAndUpdate(
           { _id: postId },
           {
             $pull: {

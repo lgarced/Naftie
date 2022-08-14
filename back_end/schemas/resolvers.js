@@ -48,26 +48,26 @@ const resolvers = {
 
       return { token, user }
     },
-    addThought: async (parent, { thoughtText }, context) => {
+    addpost: async (parent, { postText }, context) => {
       if (context.user) {
-        const thought = await Thought.create({
-          thoughtText,
-          thoughtAuthor: context.user.username,
+        const post = await post.create({
+          postText,
+          postAuthor: context.user.username,
         })
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { thoughts: thought._id } }
+          { $addToSet: { posts: post._id } }
         )
 
-        return thought
+        return post
       }
       throw new AuthenticationError("You need to be logged in!")
     },
-    addComment: async (parent, { thoughtId, commentText }, context) => {
+    addComment: async (parent, { postId, commentText }, context) => {
       if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
+        return post.findOneAndUpdate(
+          { _id: postId },
           {
             $addToSet: {
               comments: { commentText, commentAuthor: context.user.username },
@@ -81,26 +81,26 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!")
     },
-    removeThought: async (parent, { thoughtId }, context) => {
+    removepost: async (parent, { postId }, context) => {
       if (context.user) {
-        const thought = await Thought.findOneAndDelete({
-          _id: thoughtId,
-          thoughtAuthor: context.user.username,
+        const post = await post.findOneAndDelete({
+          _id: postId,
+          postAuthor: context.user.username,
         })
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { thoughts: thought._id } }
+          { $pull: { posts: post._id } }
         )
 
-        return thought
+        return post
       }
       throw new AuthenticationError("You need to be logged in!")
     },
-    removeComment: async (parent, { thoughtId, commentId }, context) => {
+    removeComment: async (parent, { postId, commentId }, context) => {
       if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
+        return post.findOneAndUpdate(
+          { _id: postId },
           {
             $pull: {
               comments: {

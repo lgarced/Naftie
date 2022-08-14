@@ -1,5 +1,6 @@
-import NavigationDots from "./NavigationDots";
-import SocialMedia from "./SocialMedia";
-import Navbar from "./Navbar/Navbar";
 
-export { NavigationDots, SocialMedia, Navbar };
+import Navbar from "./Navbar/Navbar";
+import SignIn from "./login/Login";
+import SignUp from "./signup/Signup";
+
+export {  Navbar, SignIn, SignUp };

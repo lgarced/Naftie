@@ -5,6 +5,7 @@ import Header from "./Header/Header";
 import Market from "./Market/Market";
 import Messages from "./Messages/Messages";
 import Footer from "./Footer/Footer";
+import Landing from "./Landing/Landing";
 
 export {
     About,
@@ -12,7 +13,8 @@ export {
    Header, 
    Market, 
    Messages,
-   Footer 
+   Footer,
+   Landing
 }
 
 

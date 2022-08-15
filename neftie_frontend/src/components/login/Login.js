@@ -12,6 +12,9 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Signup from "../signup/Signup";
+import { images } from "../../constants";
+import { Link as Pathway } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -73,9 +76,11 @@ export default function SignInSide() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <Avatar
+              alt="Remy Sharp"
+              src={images.logo}
+              sx={{ width: 100, height: 75 }}
+            />
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
@@ -124,9 +129,11 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                <Pathway to="signup" >
+                  <Link variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
+                </Pathway>
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />

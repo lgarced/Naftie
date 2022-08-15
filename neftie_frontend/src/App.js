@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+// import { Route, Routes } from "react-router-dom";
 import './App.css';
 import { Grid, makeStyles } from "@material-ui/core";
 import Add from "./components/Add";
@@ -17,10 +17,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function setToken(userToken) {
+  sessionStorage.setItem("token", JSON.stringify(userToken));
+}
+
+function getToken() {
+}
+
 const App = () => {
   const classes = useStyles();
+  const token = getToken();
+  if (!token) {
+    return <SignIn setToken={setToken} />;
+
+  }
+
   return (
-    <div>    
+    <div>   
       <Navbar />
       <Grid container>
         <Grid item sm={2} xs={2}>

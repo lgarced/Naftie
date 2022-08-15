@@ -5,19 +5,19 @@ const postSchema = mongoose.Schema({
     type: String,
     required: true,
     minlength: 3,
-  } ,
-  message: String,
-  creator: String,
-  tags: [String],
-  selectedFile: String,
-  likeCount: {
-    type: Number,
-    default: 0,
-  },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
+      } ,
+      message: String,
+      creator: String,
+      tags: [String],
+      selectedFile: String,
+      likeCount: {
+        type: Number,
+        default: 0,
+      },
+      createdAt: {
+        type: Date,
+        default: new Date(),
+      },
   comments: [
     {
       commentText: {

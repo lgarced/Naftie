@@ -48,7 +48,7 @@ const resolvers = {
 
       return { token, user }
     },
-    addpostMessage: async (parent, { message }, context) => {
+    addPostMessage: async (parent, { message }, context) => {
       if (context.user) {
         const post = await postMessage.create({
           message,
@@ -81,7 +81,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!")
     },
-    removepostMessage: async (parent, { postId }, context) => {
+    removePostMessage: async (parent, { postId }, context) => {
       if (context.user) {
         const post = await postMessage.findOneAndDelete({
           _id: postId,

@@ -32,7 +32,7 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
-    post(username: String): [postMessage]
+    posts(username: String): [postMessage]
     post(postId: ID!): postMessage
     me: User
   }
@@ -40,9 +40,9 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addpostMessage(message: String!): postMessage
+    addPostMessage(message: String!): postMessage
     addComment(postId: ID!, commentText: String!): postMessage
-    removepostMessage(postId: ID!): postMessage
+    removePostMessage(postId: ID!): postMessage
     removeComment(postId: ID!, commentId: ID!): postMessage
   }
 `;

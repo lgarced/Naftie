@@ -1,13 +1,11 @@
 import React from "react";
-// import { Route, Routes } from "react-router-dom";
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import './index.css';
 import { Grid, makeStyles } from "@material-ui/core";
-import Add from "./components/Add";
-import Feed from "./components/Feed";
-import Leftbar from "./components/Leftbar";
-import Navbar from "./components/Navbar/Navbar";
-import Rightbar from "./components/Rightbar";
-import { SignIn } from "./components";
+import { SignIn, Home, SignUp } from "./components";
+import useToken from "./components/App/useToken";
+// import Login from "@mui/icons-material/Login";
+
 
 const useStyles = makeStyles((theme) => ({
   right: {
@@ -19,35 +17,35 @@ const useStyles = makeStyles((theme) => ({
 
 function setToken(userToken) {
   sessionStorage.setItem("token", JSON.stringify(userToken));
-}
+};
 
 function getToken() {
-}
+  const tokenString = sessionStorage.getItem("token");
+  const userToken = JSON.parse(tokenString);
+  return userToken && userToken.token
+};
 
 const App = () => {
-  const classes = useStyles();
-  const token = getToken();
-  if (!token) {
-    return <SignIn setToken={setToken} />;
 
+  // const classes = useStyles();
+  const token = getToken();
+
+  if (!token) {
+    return (
+
+     <Routes>
+        <Route path="/signup" element={ <SignUp  />}/>
+        <Route path="/" element={ <SignIn setToken={setToken} />} />
+    </Routes>
+    )
   }
 
   return (
-    <div>   
-      <Navbar />
-      <Grid container>
-        <Grid item sm={2} xs={2}>
-          <Leftbar />
-        </Grid>
-        <Grid item sm={7} xs={10}>
-          <Feed />
-        </Grid>
-        <Grid item sm={3} className={classes.right}>
-          <Rightbar />
-        </Grid>
-      </Grid>
-      <Add />
-    </div>
+    <Routes>
+      <Route path="/">
+        <Route exact path={"home"} element={<Home />} />
+      </Route>
+    </Routes>
   );
 };
 

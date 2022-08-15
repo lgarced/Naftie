@@ -35,6 +35,7 @@
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "transpile": "babel src/index.js --out-file src/index-transpiled.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -55,7 +56,10 @@
       "last 1 safari version"
     ]
   },
+   
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
     "bootstrap": "^5.2.0",
     "react-bootstrap": "^2.5.0",
     "sass": "^1.54.3",

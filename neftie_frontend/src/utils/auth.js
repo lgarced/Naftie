@@ -22,17 +22,23 @@ class AuthService {
     }
   }
 
-  getToken() {
-    // Retrieves the user token from localStorage
-    return localStorage.getItem("id_token");
-  }
+   getToken = () => {
+    const tokenString = localStorage.getItem("token");
+    const userToken = JSON.parse(tokenString);
+    return userToken.token;
+  };
+  
 
-  login(idToken) {
-    // Saves user token to localStorage
-    localStorage.setItem("id_token", idToken);
 
-    window.location.assign("/");
-  }
+  saveToken = (userToken) => {
+    localStorage.setItem("token", JSON.stringify(userToken));
+  };
+  // login(idToken) {
+  //   // Saves user token to localStorage
+  //   localStorage.setItem("id_token", idToken);
+
+  //   window.location.assign("/");
+  // }
 
   logout() {
     // Clear user token and profile data from localStorage

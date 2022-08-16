@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import './index.css';
 import { Grid, makeStyles } from "@material-ui/core";
 import { SignIn, Home, SignUp } from "./components";
-import useToken from "./components/App/useToken";
+import { useToken } from "./utils/auth";
 // import Login from "@mui/icons-material/Login";
 
 
@@ -50,6 +50,8 @@ const App = () => {
 };
 
 export default App;
+
+
 
 // import {About, Footer 
 //       ,Header, Apps

@@ -3,7 +3,13 @@ const bcrypt = require("bcrypt")
 
 const userSchema = Schema(
   {
-    username: {
+    firstName: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    lastName: {
       type: String,
       required: true,
       unique: true,
@@ -51,6 +57,7 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password)
 }
 
-var User = model("User", userSchema)
+const User = model("User", userSchema)
 
-export default User
+module.exports = User
+

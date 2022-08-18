@@ -1,20 +1,31 @@
-import express from "express";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
-import cors from "cors";
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const { ApolloServer } = require('apollo-server-express');
+const typeDefs = require('./Schemas/index.js');
+const resolvers = require('./Schemas/resolvers.js');
 
-import postRoutes from "./routes/posts.js";
+
 
 const app = express();
-
-app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cors());
+//Problably causing the error
+// app.use(bodyParser.json({ limit: "30mb", extended: true }));
+// app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-app.use("/posts", postRoutes);
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+  // context: 
+});
+
+
 
 const CONNECTION_URL =
- process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/neftie'; 
+ process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/naftie'; 
 const PORT = process.env.PORT || 5000;
 
 mongoose

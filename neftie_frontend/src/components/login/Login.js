@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Signup from "../signup/Signup";
 import { images } from "../../constants";
 import { Link as Pathway } from "react-router-dom";
+import { AuthContext } from "../../utils/authContext";
 
 function Copyright(props) {
   return (
@@ -37,6 +38,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
+  const { user, login, logout} = useContext(AuthContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -47,6 +49,7 @@ export default function SignInSide() {
   };
 
   return (
+ 
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
@@ -129,11 +132,11 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                <Pathway to="signup" >
-                  <Link variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Pathway>
+                  <Pathway to="signup">
+                    <Link variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Pathway>
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />

@@ -1,8 +1,5 @@
-import express from "express";
-import mongoose from "mongoose";
-
-
-import PostMessage from "../models/postMessage.js";
+const express = require("express");
+const mongoose = require("mongoose");
 
 const router = express.Router();
 

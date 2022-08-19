@@ -1,10 +1,17 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import { ApolloServer } from 'apollo-server-express';
-// import resolvers from './Schemas/Resovler/resolvers.js';
+// import express from 'express';
+// import cors from 'cors';
+// import bodyParser from 'body-parser';
+// import mongoose from 'mongoose';
+// import { ApolloServer } from 'apollo-server-express';
+// import { typeDefs, resolvers } from './Schemas/index.js';
+// import resolvers from './Schemas/Resovler/resolvers.mjs';
 // import typeDefs from './Schemas/TypeDefs/typeDefs.js';
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const { ApolloServer } = require('apollo-server-express');
+const { typeDefs, resolvers } = require('./Schemas/index.js');
 
 
 
@@ -16,11 +23,11 @@ app.use(cors());
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
-// const server = new ApolloServer({
-//   typeDefs,
-//   resolvers
-//   // context: 
-// });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+  // context: 
+});
 
 
 
@@ -40,4 +47,4 @@ mongoose
 
 
   //This useFindAndModify is causing the error it is deprecated from mongoose version 6
-// mongoose.set("useFindAndModify", false);
+// mongoose.set("useFindAndModify", false) it was removed and it is not needed anymore;

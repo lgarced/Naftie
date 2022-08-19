@@ -1,4 +1,6 @@
-import { gql } from "apollo-server-express";
+// import { gql } from "apollo-server-express";
+const { gql} = require("apollo-server-express");
+
 
 const typeDefs = gql`
 
@@ -8,7 +10,7 @@ const typeDefs = gql`
     lastName: String!
     email: String!
     password: String!
-    posts: [postMessage]!
+    posts: [Post]!
     friends: [User]!
     messages: [Message]!
   }
@@ -32,12 +34,18 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
+  type Message {
+    _id: ID
+    message: String
+    creator: String
+    createdAt: String
+  }
 
   type Query {
     users: [User]
     user(username: String!): User
     posts(username: String): [Post]
-    post(postId: ID!): postMessage
+    post(postId: ID!): Post
     me: User
   }
 
@@ -51,7 +59,7 @@ const typeDefs = gql`
   }
 `;
 
-
-export default typeDefs;
+module.exports = typeDefs;
+// export default typeDefs;
 
 

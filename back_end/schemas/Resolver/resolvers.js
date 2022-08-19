@@ -1,6 +1,6 @@
-const { AuthenticationError } = require("apollo-server-express")
-// const { User, Post } = require("../models")
-// const { signToken } = require("../neftie_frontend/src/utils/auth")
+import { AuthenticationError } from "apollo-server-express";
+import { AuthService } from "../../neftie_frontend/src/utils/auth"; 
+import { User, Post, Comment, Message } from "./models/index.js";
 
 
 const resolvers = {
@@ -120,4 +120,6 @@ const resolvers = {
 }
 
 
-module.exports = resolvers
+export default resolvers;
+
+

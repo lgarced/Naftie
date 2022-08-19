@@ -1,5 +1,4 @@
-const { Schema, model } = require("mongoose");
-
+import {Schema, model} from 'mongoose';
 
 const sendMessageSchema = Schema(
     {
@@ -30,4 +29,4 @@ const sendMessageSchema = Schema(
 
 const sendMessage = model("sendMessage", sendMessageSchema);
 
-module.exports = sendMessage;
+export default sendMessage;

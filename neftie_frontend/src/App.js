@@ -1,19 +1,12 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import './index.css';
-import { Grid, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { SignIn, Home, SignUp } from "./components";
-import useToken from "./components/App/useToken";
-// import Login from "@mui/icons-material/Login";
 
 
-const useStyles = makeStyles((theme) => ({
-  right: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-}));
+
+
 
 function setToken(userToken) {
   sessionStorage.setItem("token", JSON.stringify(userToken));
@@ -27,7 +20,6 @@ function getToken() {
 
 const App = () => {
 
-  // const classes = useStyles();
   const token = getToken();
 
   if (!token) {
@@ -50,6 +42,8 @@ const App = () => {
 };
 
 export default App;
+
+
 
 // import {About, Footer 
 //       ,Header, Apps

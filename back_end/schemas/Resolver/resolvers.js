@@ -1,6 +1,7 @@
-const { AuthenticationError } = require("apollo-server-express")
-const { User, postMessage } = require("../models")
-const { signToken } = require("../utils/auth")
+import { AuthenticationError } from "apollo-server-express";
+import { AuthService } from "../../neftie_frontend/src/utils/auth"; 
+import { User, Post, Comment, Message } from "./models/index.js";
+
 
 const resolvers = {
   Query: {
@@ -12,10 +13,10 @@ const resolvers = {
     },
     posts: async (parent, { username }) => {
       const params = username ? { username } : {}
-      return postMessage.find(params).sort({ createdAt: -1 })
+      return Post.find(params).sort({ createdAt: -1 })
     },
     post: async (parent, { postId }) => {
-      return postMessage.findOne({ _id: postId })
+      return Post.findOne({ _id: postId })
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -26,8 +27,9 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password })
+    addUser: async (parent, { firstName,lastName, email, password }) => {
+      console.log(firstName,lastName, email)
+      const user = await User.create({ firstName, lastName, email, password });
       const token = signToken(user)
       return { token, user }
     },
@@ -48,11 +50,11 @@ const resolvers = {
 
       return { token, user }
     },
-    addPostMessage: async (parent, { message }, context) => {
+    addPost: async (parent, { message }, context) => {
       if (context.user) {
-        const post = await postMessage.create({
+        const post = await Post.create({
           message,
-          creator: context.user.username,
+          creator: context.user.firstName,
         })
 
         await User.findOneAndUpdate(
@@ -66,11 +68,11 @@ const resolvers = {
     },
     addComment: async (parent, { postId, commentText }, context) => {
       if (context.user) {
-        return postMessage.findOneAndUpdate(
+        return Post.findOneAndUpdate(
           { _id: postId },
           {
             $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
+              comments: { commentText, commentAuthor: context.user.firstName },
             },
           },
           {
@@ -81,11 +83,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!")
     },
-    removePostMessage: async (parent, { postId }, context) => {
+    removePost: async (parent, { postId }, context) => {
       if (context.user) {
-        const post = await postMessage.findOneAndDelete({
+        const post = await Post.findOneAndDelete({
           _id: postId,
-          creator: context.user.username,
+          creator: context.user.firstName,
         })
 
         await User.findOneAndUpdate(
@@ -99,13 +101,13 @@ const resolvers = {
     },
     removeComment: async (parent, { postId, commentId }, context) => {
       if (context.user) {
-        return postMessage.findOneAndUpdate(
+        return Post.findOneAndUpdate(
           { _id: postId },
           {
             $pull: {
               comments: {
                 _id: commentId,
-                commentAuthor: context.user.username,
+                commentAuthor: context.user.firstName,
               },
             },
           },
@@ -117,4 +119,7 @@ const resolvers = {
   },
 }
 
-module.exports = resolvers
+
+export default resolvers;
+
+

@@ -1,5 +1,5 @@
-import * as React from "react";
-import {Link as Pathway} from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link as Pathway } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,6 +14,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import SignIn from "../login/Login";
+import { AuthContext } from "../../utils/authContext";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { ADD_USER } from "../../utils/mutations";
 
 function Copyright(props) {
   return (
@@ -32,10 +35,21 @@ function Copyright(props) {
     </Typography>
   );
 }
-
 const theme = createTheme();
 
 export default function SignUp() {
+  const { user, login, logout } = useContext(AuthContext);
+
+  const [addUser] = useMutation(ADD_USER);
+
+
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,6 +57,10 @@ export default function SignUp() {
       email: data.get("email"),
       password: data.get("password"),
     });
+  };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
   };
 
   return (
@@ -72,43 +90,51 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  onChange={handleChange}
                   autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
                   id="firstName"
                   label="First Name"
+                  value={form.firstName}
                   autoFocus
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  onChange={handleChange}
                   required
                   fullWidth
                   id="lastName"
                   label="Last Name"
                   name="lastName"
+                  value={form.lastName}
                   autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={handleChange}
                   required
                   fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
+                  value={form.email}
                   autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={handleChange}
                   required
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
+                  value={form.password}
                   autoComplete="new-password"
                 />
               </Grid>
@@ -117,12 +143,19 @@ export default function SignUp() {
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="I have read the terms of service and privacy policy."
                 />
               </Grid>
             </Grid>
             <Button
-              type="submit"
+              onClick={() =>
+                addUser(
+                  { variables: {firstName: form.firstName, 
+                    lastName: form.lastName, 
+                    email: form.email, 
+                    password: form.password} }
+                )
+              }
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
@@ -131,10 +164,8 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Pathway to="/" >
-                <Link variant="body2">
-                  Already have an account? Sign in
-                </Link>
+                <Pathway to="/">
+                  <Link variant="body2">Already have an account? Sign in</Link>
                 </Pathway>
               </Grid>
             </Grid>

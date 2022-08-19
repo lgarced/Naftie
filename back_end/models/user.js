@@ -38,6 +38,18 @@ const userSchema = Schema(
         ref: "postMessage",
       },
     ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    message: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Message",
+      },
+    ],
   },
   {
     toJSON: {

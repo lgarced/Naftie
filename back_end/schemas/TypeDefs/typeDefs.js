@@ -11,6 +11,7 @@ const typeDefs = gql`
     email: String!
     password: String!
     posts: [Post]!
+    createdAt: Date
     friends: [User]!
     messages: [Message]!
   }
@@ -19,15 +20,23 @@ const typeDefs = gql`
     _id: ID
     message: String
     creator: String
-    createdAt: String
+    createdAt: Date
     comments: [Comment]!
   }
 
   type Comment {
     _id: ID
-    commentText: String
-    commentAuthor: String
-    createdAt: String
+    user: User
+    comment: String
+    createdAt: Date
+  }
+
+  type Message {
+    _id: ID
+    sender: User
+    receiver: User
+    message: String
+    createdAt: Date
   }
 
   type Auth {

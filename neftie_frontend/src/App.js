@@ -1,27 +1,49 @@
-import React from "react";
+import React, {useEffect, useState, useContext} from "react";
 import { Route, Routes } from "react-router-dom";
 import './index.css';
 import { makeStyles } from "@material-ui/core";
 import { SignIn, Home, SignUp } from "./components";
-
-
-
-
+import decode from "jwt-decode"; 
+import { AuthContext } from "./utils/authContext";
 
 function setToken(userToken) {
-  sessionStorage.setItem("token", JSON.stringify(userToken));
+  localStorage.setItem("token", JSON.stringify(userToken));
 };
 
 function getToken() {
-  const tokenString = sessionStorage.getItem("token");
-  const userToken = JSON.parse(tokenString);
-  return userToken && userToken.token
+  const tokenString = localStorage.getItem("token");
+  if (!tokenString) return false;
+  const userToken = decode(tokenString) ;
+  console.log('THIS IS ALSO THE TOKEN', tokenString)
+  console.log(userToken)
+  return userToken 
 };
 
+
 const App = () => {
+ const { user, login, logout } = useContext(AuthContext);
+const [token, setToken] = useState(getToken());
+useEffect(() => {
+ console.log(user)
+ setToken(user);
+}, [user]);
+//listen for token changes 
+ useEffect(() => {
+  function checkUserData() {
+    const item = localStorage.getItem("token");
+    console.log(item);
+    setToken(getToken());
+  }
 
-  const token = getToken();
+  window.addEventListener("storage", checkUserData);
 
+  return () => {
+    window.removeEventListener("storage", checkUserData);
+  };
+}, []);
+
+
+  console.log(token)
   if (!token) {
     return (
 
@@ -34,9 +56,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/">
-        <Route exact path={"home"} element={<Home />} />
-      </Route>
+        <Route exact path={"/"} element={<Home />} />
     </Routes>
   );
 };

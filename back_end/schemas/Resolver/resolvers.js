@@ -1,7 +1,8 @@
-import { AuthenticationError } from "apollo-server-express";
-import { AuthService } from "../../neftie_frontend/src/utils/auth"; 
-import { User, Post, Comment, Message } from "./models/index.js";
-
+// import { AuthenticationError } from "apollo-server-express";
+// import { User, Post, Comment, Message } from "./models/index.js";
+const { AuthenticationError } = require("apollo-server-express");
+const { User, Post } = require("../../models/index.js");
+const { signToken } = require("../../utils/auth");
 
 const resolvers = {
   Query: {
@@ -119,7 +120,8 @@ const resolvers = {
   },
 }
 
+module.exports = resolvers;
 
-export default resolvers;
+// export default resolvers;
 
 

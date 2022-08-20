@@ -1,6 +1,9 @@
-import { gql } from "apollo-server-express";
+// import { gql } from "apollo-server-express";
+const { gql} = require("apollo-server-express");
+
 
 const typeDefs = gql`
+scalar Date
 
   type User {
     _id: ID
@@ -8,7 +11,7 @@ const typeDefs = gql`
     lastName: String!
     email: String!
     password: String!
-    posts: [postMessage]!
+    posts: [Post]!
     createdAt: Date
     friends: [User]!
     messages: [Message]!
@@ -53,7 +56,7 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     posts(username: String): [Post]
-    post(postId: ID!): postMessage
+    post(postId: ID!): Post
     me: User
   }
 
@@ -67,7 +70,7 @@ const typeDefs = gql`
   }
 `;
 
-
-export default typeDefs;
+module.exports = typeDefs;
+// export default typeDefs;
 
 

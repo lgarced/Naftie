@@ -3,6 +3,7 @@ const { gql} = require("apollo-server-express");
 
 
 const typeDefs = gql`
+scalar Date
 
   type User {
     _id: ID
@@ -42,12 +43,6 @@ const typeDefs = gql`
   type Auth {
     token: ID!
     user: User
-  }
-  type Message {
-    _id: ID
-    message: String
-    creator: String
-    createdAt: String
   }
 
   type Query {

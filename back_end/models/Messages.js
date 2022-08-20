@@ -1,4 +1,5 @@
-import {Schema, model} from 'mongoose';
+// import {Schema, model} from 'mongoose';
+const {Schema, model} = require('mongoose');
 
 const sendMessageSchema = Schema(
     {
@@ -27,6 +28,9 @@ const sendMessageSchema = Schema(
     }
 );
 
+
 const sendMessage = model("sendMessage", sendMessageSchema);
 
-export default sendMessage;
+module.exports = sendMessage;
+
+// export default sendMessage;

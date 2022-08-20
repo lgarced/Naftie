@@ -1,20 +1,12 @@
 import React ,{ useReducer, createContext } from "react";
-import jwtDecode from "jwt-decode";
+import jwt_decode from "jwt-decode";
+
+
 
 const initialState = {
   user: null,
 };
 
-if (localStorage.getItem("token")) {
-    const decode = jwtDecode(localStorage.getItem("token"));
-
-    if (decode.exp * 1000 > Date.now()) {
-        initialState.user = decode;
-    } else  {
-        initialState.user = decode;
-    }
-
-}
 
 const AuthContext = createContext( {
     user: null,
@@ -42,11 +34,20 @@ const authReducer = (state, action) => {
 const AuthProvider = ({ children }) => { 
     const [state, dispatch] = useReducer(authReducer, initialState);
 
-    const login = (userData) => {
-        localStorage.setItem("token", JSON.stringify(userData));
+    const login = (token) => {
+        console.log('token from GQL', token)
+        localStorage.setItem("token", token);
+          
+          const decode = jwt_decode(token);
+
+          if (decode.exp * 1000 > Date.now()) {
+           token= decode;
+          } else {
+            token = decode;
+          }
         dispatch({
             type: "LOGIN",
-            payload: userData,
+            payload: token,
         });
     }
     const logout = () => {

@@ -16,6 +16,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { images } from "../../constants";
 import { Link as Pathway } from "react-router-dom";
 import { AuthContext } from "../../utils/authContext";
+import { LOGIN } from "../../utils/mutations";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 
 function Copyright(props) {
   return (
@@ -38,27 +40,43 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
-  const { user, login, logout} = useContext(AuthContext);
-
-  const [form, setForm] = useState({
+ const { user, login, logout} = useContext(AuthContext);
+ const [userlogin,{error, data}] = useMutation(LOGIN);
+ const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
   const handleChange = (event) => {
+    const { name, value } = event.target;
     setForm({
       ...form,
       [event.target.name]: event.target.value,
     });
   }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+        try {
+          const { data } = await userlogin({
+            variables: { ...form },
+          });
+
+          login(data.login.token);
+        } catch (e) {
+          console.error(e);
+        }
+
+        // clear form values
+        setForm({
+          email: "",
+          password: "",
+        });
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
   return (
  
     <ThemeProvider theme={theme}>
@@ -108,11 +126,11 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                onChange={handleChange}
                 id="email"
                 label="Email Address"
                 name="email"
                 value={form.email}
+                onChange={handleChange}
                 autoComplete="email"
                 autoFocus
               />
@@ -120,11 +138,11 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                onChange={handleChange}
                 name="password"
                 label="Password"
                 type="password"
                 value={form.password}
+                onChange={handleChange}
                 id="password"
                 autoComplete="current-password"
               />

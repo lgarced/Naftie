@@ -2,6 +2,7 @@
 // import { User, Post, Comment, Message } from "./models/index.js";
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Post } = require("../../models/index.js");
+const { signToken } = require("../../utils/auth");
 
 const resolvers = {
   Query: {

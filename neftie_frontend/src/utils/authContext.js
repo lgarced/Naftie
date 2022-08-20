@@ -1,12 +1,15 @@
 import React ,{ useReducer, createContext } from "react";
-import jwtDecode from "jwt-decode";
+import jwt_decode from "jwt-decode";
+
+
 
 const initialState = {
   user: null,
 };
 
 if (localStorage.getItem("token")) {
-    const decode = jwtDecode(localStorage.getItem("token"));
+    console.log(localStorage.getItem("token"));
+    const decode = jwt_decode(localStorage.getItem("token"));
 
     if (decode.exp * 1000 > Date.now()) {
         initialState.user = decode;

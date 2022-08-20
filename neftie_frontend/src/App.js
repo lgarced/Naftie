@@ -3,25 +3,27 @@ import { Route, Routes } from "react-router-dom";
 import './index.css';
 import { makeStyles } from "@material-ui/core";
 import { SignIn, Home, SignUp } from "./components";
-
+import decode from "jwt-decode"; 
 
 
 
 
 function setToken(userToken) {
-  sessionStorage.setItem("token", JSON.stringify(userToken));
+  localStorage.setItem("token", JSON.stringify(userToken));
 };
 
 function getToken() {
-  const tokenString = sessionStorage.getItem("token");
-  const userToken = JSON.parse(tokenString);
-  return userToken && userToken.token
+  const tokenString = localStorage.getItem("token");
+  const userToken = decode(tokenString);
+  console.log(tokenString)
+  console.log(userToken)
+  return userToken 
 };
 
 const App = () => {
 
   const token = getToken();
-
+  console.log(token)
   if (!token) {
     return (
 
@@ -34,9 +36,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/">
-        <Route exact path={"home"} element={<Home />} />
-      </Route>
+        <Route exact path={"/"} element={<Home />} />
     </Routes>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Container, makeStyles, Typography } from "@material-ui/core";
 import {
   Bookmark,
@@ -12,7 +12,7 @@ import {
   Storefront,
   TabletMac,
 } from "@material-ui/icons";
-import LoginIcon from "@mui/icons-material/Login";
+import { AuthContext } from "../utils/authContext";
 
 
 
@@ -53,7 +53,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 const Leftbar = () => {
+   const { user, login, logout } = useContext(AuthContext);
+
   const classes = useStyles();
   return (
     <Container className={classes.container}>
@@ -94,14 +98,12 @@ const Leftbar = () => {
         <Typography className={classes.text}>Settings</Typography>
       </div>
       <div className={classes.item}>
-        <LoginIcon className={classes.icon} />
-        <Typography className={classes.text}>Login In</Typography>
-      </div>
-      <div className={classes.item}>
         <ExitToApp 
           className={classes.icon} 
           variant="contained" 
-          color="secondary" />
+          color="secondary"
+          onClick = {logout}
+           />
         <Typography className={classes.text}>Log Out</Typography>
       </div>
     </Container>

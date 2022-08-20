@@ -22,6 +22,13 @@ const typeDefs = gql`
     comments: [Comment]!
   }
 
+  type Friend {
+    _id: ID
+    firstName: String!
+    lastName: String!
+    createdAt: Date
+  }
+
   type Comment {
     _id: ID
     user: User

@@ -1,7 +1,9 @@
-import { AuthenticationError } from "apollo-server-express";
-import { AuthService } from "../../neftie_frontend/src/utils/auth"; 
-import { User, Post, Comment, Message } from "./models/index.js";
-
+// import { AuthenticationError } from "apollo-server-express";
+// import { User, Post, Comment, Message } from "./models/index.js";
+const { AuthenticationError } = require("apollo-server-express");
+const { User, Post } = require("../../models/index.js");
+const { signToken } = require("../../utils/auth");
+const {logout} = require("../../utils/auth");
 
 const resolvers = {
   Query: {
@@ -28,10 +30,15 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { firstName,lastName, email, password }) => {
-      console.log(firstName,lastName, email)
+      try {
+      console.log("TEST", firstName,lastName, email)
       const user = await User.create({ firstName, lastName, email, password });
+      console.log(user)
       const token = signToken(user)
       return { token, user }
+      } catch (error) {
+         console.log(error)
+      }
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email })
@@ -119,7 +126,8 @@ const resolvers = {
   },
 }
 
+module.exports = resolvers;
 
-export default resolvers;
+// export default resolvers;
 
 

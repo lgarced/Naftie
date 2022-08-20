@@ -150,7 +150,8 @@ export default function SignUp() {
             <Button
               onClick={() =>
                 addUser(
-                  { variables: {firstName: form.firstName, 
+                  { variables: 
+                    {firstName: form.firstName, 
                     lastName: form.lastName, 
                     email: form.email, 
                     password: form.password} }

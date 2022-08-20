@@ -12,6 +12,9 @@ import {
   Storefront,
   TabletMac,
 } from "@material-ui/icons";
+import LoginIcon from "@mui/icons-material/Login";
+
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -91,8 +94,15 @@ const Leftbar = () => {
         <Typography className={classes.text}>Settings</Typography>
       </div>
       <div className={classes.item}>
-        <ExitToApp className={classes.icon} />
-        <Typography className={classes.text}>Logout</Typography>
+        <LoginIcon className={classes.icon} />
+        <Typography className={classes.text}>Login In</Typography>
+      </div>
+      <div className={classes.item}>
+        <ExitToApp 
+          className={classes.icon} 
+          variant="contained" 
+          color="secondary" />
+        <Typography className={classes.text}>Log Out</Typography>
       </div>
     </Container>
   );

@@ -1,75 +1,149 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Form,
-  FormControl,
-} from 'react-bootstrap';
+import React, { useContext, useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Signup from "../signup/Signup";
+import { images } from "../../constants";
+import { Link as Pathway } from "react-router-dom";
+import { AuthContext } from "../../utils/authContext";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-    };
-  }
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onLoginClick = () => {
-    const userData = {
-      username: this.state.username,
-      password: this.state.password,
-    };
-    console.log("Login " + userData.username + " " + userData.password);
-  };
-  render() {
-    return (
-      <Container>
-        <Row>
-          <Col md="4">
-            <h1>Login</h1>
-            <Form>
-              <Form.Group controlId="usernameId">
-                <Form.Label>User name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="username"
-                  placeholder="Enter user name"
-                  value={this.state.username}
-                  onChange={this.onChange}
-                />
-                <FormControl.Feedback type="invalid"></FormControl.Feedback>
-              </Form.Group>
-
-              <Form.Group controlId="passwordId">
-                <Form.Label>Your password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="Enter password"
-                  value={this.state.password}
-                  onChange={this.onChange}
-                />
-                <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-              </Form.Group>
-            </Form>
-            <Button color="primary" onClick={this.onLoginClick}>
-              Login
-            </Button>
-            <p className="mt-2">
-              Don't have account? <Link to="/signup">Signup</Link>
-            </p>
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="https://mui.com/">
+        NAFTIE
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
 }
 
-export default Login;
+const theme = createTheme();
+
+export default function SignInSide() {
+  const { user, login, logout} = useContext(AuthContext);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
+
+  return (
+ 
+    <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage: "url(https://source.unsplash.com/random)",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: (t) =>
+              t.palette.mode === "light"
+                ? t.palette.grey[50]
+                : t.palette.grey[900],
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar
+              alt="Remy Sharp"
+              src={images.logo}
+              sx={{ width: 100, height: 75 }}
+            />
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Pathway to="signup">
+                    <Link variant="body2">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Pathway>
+                </Grid>
+              </Grid>
+              <Copyright sx={{ mt: 5 }} />
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
+}

@@ -1,44 +1,49 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import './App.css';
-import { Grid, makeStyles } from "@material-ui/core";
-import Add from "./components/Add";
-import Feed from "./components/Feed";
-import Leftbar from "./components/Leftbar";
-import Navbar from "./components/Navbar/Navbar";
-import Rightbar from "./components/Rightbar";
+import './index.css';
+import { makeStyles } from "@material-ui/core";
+import { SignIn, Home, SignUp } from "./components";
 
 
-const useStyles = makeStyles((theme) => ({
-  right: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-}));
+
+
+
+function setToken(userToken) {
+  sessionStorage.setItem("token", JSON.stringify(userToken));
+};
+
+function getToken() {
+  const tokenString = sessionStorage.getItem("token");
+  const userToken = JSON.parse(tokenString);
+  return userToken && userToken.token
+};
 
 const App = () => {
-  const classes = useStyles();
+
+  const token = getToken();
+
+  if (!token) {
+    return (
+
+     <Routes>
+        <Route path="/signup" element={ <SignUp  />}/>
+        <Route path="/" element={ <SignIn setToken={setToken} />} />
+    </Routes>
+    )
+  }
+
   return (
-    <div>
-      <Navbar />
-      <Grid container>
-        <Grid item sm={2} xs={2}>
-          <Leftbar />
-        </Grid>
-        <Grid item sm={7} xs={10}>
-          <Feed />
-        </Grid>
-        <Grid item sm={3} className={classes.right}>
-          <Rightbar />
-        </Grid>
-      </Grid>
-      <Add />
-    </div>
+    <Routes>
+      <Route path="/">
+        <Route exact path={"home"} element={<Home />} />
+      </Route>
+    </Routes>
   );
 };
 
 export default App;
+
+
 
 // import {About, Footer 
 //       ,Header, Apps

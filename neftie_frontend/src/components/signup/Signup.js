@@ -1,76 +1,178 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import {
-  Container,
-  Button,
-  Row,
-  Col,
-  Form,
-  FormControl,
-} from 'react-bootstrap';
+import React, { useContext, useState } from "react";
+import { Link as Pathway } from "react-router-dom";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import SignIn from "../login/Login";
+import { AuthContext } from "../../utils/authContext";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { ADD_USER } from "../../utils/mutations";
 
-class Signup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-    };
-  }
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onSignupClick = () => {
-    const userData = {
-      username: this.state.username,
-      password: this.state.password,
-    };
-    console.log("Sign up " + userData.username + " " + userData.password);
-  };
-
-  render() {
-    return (
-      <Container>
-        <Row>
-          <Col md="4">
-            <h1>Sign up</h1>
-            <Form>
-              <Form.Group controlId="usernameId">
-                <Form.Label>User name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="username"
-                  placeholder="Enter user name"
-                  value={this.state.username}
-                  onChange={this.onChange}
-                />
-                <FormControl.Feedback type="invalid"></FormControl.Feedback>
-              </Form.Group>
-
-              <Form.Group controlId="passwordId">
-                <Form.Label>Your password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="Enter password"
-                  value={this.password}
-                  onChange={this.onChange}
-                />
-                <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-              </Form.Group>
-            </Form>
-            <Button color="primary" onClick={this.onSignupClick}>
-              Sign up
-            </Button>
-            <p className="mt-2">
-              Already have account? <Link to="/login">Login</Link>
-            </p>
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
+      <Link color="inherit" href="https://mui.com/">
+        NAFTIE
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
 }
+const theme = createTheme();
 
-export default Signup;
+export default function SignUp() {
+  const { user, login, logout } = useContext(AuthContext);
+
+  const [addUser] = useMutation(ADD_USER);
+
+
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  onChange={handleChange}
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  value={form.firstName}
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  onChange={handleChange}
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  value={form.lastName}
+                  autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  onChange={handleChange}
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  value={form.email}
+                  autoComplete="email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  onChange={handleChange}
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  value={form.password}
+                  autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="I have read the terms of service and privacy policy."
+                />
+              </Grid>
+            </Grid>
+            <Button
+              onClick={() =>
+                addUser(
+                  { variables: {firstName: form.firstName, 
+                    lastName: form.lastName, 
+                    email: form.email, 
+                    password: form.password} }
+                )
+              }
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Pathway to="/">
+                  <Link variant="body2">Already have an account? Sign in</Link>
+                </Pathway>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 5 }} />
+      </Container>
+    </ThemeProvider>
+  );
+}

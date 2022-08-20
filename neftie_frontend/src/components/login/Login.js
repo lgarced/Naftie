@@ -61,7 +61,7 @@ export default function SignInSide() {
           const { data } = await userlogin({
             variables: { ...form },
           });
-
+          console.log('This is the data from GQL', data)
           login(data.login.token);
         } catch (e) {
           console.error(e);
@@ -151,12 +151,6 @@ export default function SignInSide() {
                 label="Remember me"
               />
               <Button
-                onClick={() => 
-                  login(
-                    {variables:
-                      {email: form.email,
-                      password: form.password}
-                    })}
                 type="submit"
                 fullWidth
                 variant="contained"

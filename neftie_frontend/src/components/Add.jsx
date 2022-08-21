@@ -14,9 +14,13 @@ import {
   TextField,
   Tooltip,
 } from "@material-ui/core";
-import { Add as AddIcon } from "@material-ui/icons";
-import { useState } from "react";
+import { Add as AddIcon, Copyright } from "@material-ui/icons";
+import { useState, useContext } from "react";
 import MuiAlert from "@material-ui/lab/Alert";
+import { set } from "mongoose";
+import { ADD_POST } from "../utils/mutations";
+import { useMutation } from '@apollo/client';
+import { AuthContext } from "../utils/authContext";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -55,6 +59,12 @@ const Add = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
+  const { user } = useContext(AuthContext);
+  console.log("This is the user!", user)
+
+ const [ postForm, setpostForm ] = useState({title: "", description: "", visibility: "Public", canComment: ""});
+
+  const [addPost] = useMutation(ADD_POST);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -63,6 +73,10 @@ const Add = () => {
 
     setOpenAlert(false);
   };
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setpostForm(prev => ({ ...prev, [name]: value }))
+  }
   return (
     <>
       <Tooltip title="Add" aria-label="add" onClick={() => setOpen(true)}>
@@ -76,9 +90,12 @@ const Add = () => {
             <div className={classes.item}>
               <TextField
                 id="standard-basic"
+                value = {postForm.title}
                 label="Title"
                 size="small"
                 style={{ width: "100%" }}
+                onChange={handleChange}
+                name="title"
               />
             </div>
             <div className={classes.item}>
@@ -86,11 +103,13 @@ const Add = () => {
                 id="outlined-multiline-static"
                 multiline
                 rows={4}
-                defaultValue="Tell your story..."
+                value={postForm.description}
                 variant="outlined"
                 label="Description"
                 size="small"
                 style={{ width: "100%" }}
+                onChange={handleChange}
+                name="description"
               />
             </div>
             <div className={classes.item}>
@@ -131,7 +150,10 @@ const Add = () => {
                 variant="outlined"
                 color="primary"
                 style={{ marginRight: 20 }}
-                onClick={() => setOpenAlert(true)}
+                onClick={() =>{ 
+                  setOpenAlert(true)
+                  addPost()
+                }}
               >
                 Create
               </Button>

@@ -1,0 +1,24 @@
+{
+  "name": "naftie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "back_end/index.js",
+  "scripts": {
+    "start": "node back_end/index.js",
+    "develop": "concurrently \"cd back_end && npm run watch\" \"cd neftie_frontend && npm start\"",
+    "install": "cd back_end && npm i",
+    "seed": "cd back_end && npm run seed",
+    "build": "cd neftie_frontend && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.5.2"
+  }
+}

@@ -27,6 +27,12 @@ app.get("/", (req, res) => {
 });
 
 
+//FOR TESTING PURPOSES
+app.get("/whoami", (req,res)=> {
+  res.send("<h1>THIS IS NAFTIE, THE ILLEST SOCIAL MEDIA PLATFORM!</h1>")
+})
+
+
 const startApolloServer = async (typeDefs, resolvers) => {
 await server.start();
 server.applyMiddleware({ app });

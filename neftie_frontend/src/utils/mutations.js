@@ -56,6 +56,14 @@ export const ADD_POST = gql`
   }
 `;
 
+
+//post needs to be design better on the backend
+// export const REMOVE_POST = gql`
+//   mutation removePost($postId: ID!) {
+//     removePost(postId: $postId) {
+//       _id
+//       messa
+
 export const ADD_COMMENT = gql`
   mutation addComment(
     $userId: ID!
@@ -78,6 +86,41 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
+
+export const REMOVE_COMMENT = gql`
+  mutation removeComment(
+    $commentId: ID!
+    $postId: ID!
+  ) {
+    removeComment(
+      commentId: $commentId
+      postId: $postId
+    ) {
+      _id
+      comment
+      createdAt
+      user {
+        _id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // export const ADD_ORDER = gql`
 //   mutation addOrder($products: [ID]!) {

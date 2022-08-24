@@ -9,13 +9,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import PersonIcon from "@mui/icons-material/Person";
-// import { ToggleButton } from "@mui/material"; 
 import { Cancel, Mail, Notifications, Search } from "@material-ui/icons";
 import  React, { useState } from "react";
 import { images } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
+    // backgroundColor: alpha(theme.palette.main, 0.15),
     display: "flex",
     justifyContent: "space-between",
 
@@ -80,7 +80,7 @@ const Navbar = () => {
         <Avatar
           alt="Remy Sharp"
           src={images.logo}
-          sx={{ width: 100, height: 56 }}
+          sx={{ width: 100, height: 100 }}
         />
         <Typography variant="h6" className={classes.logoLg}></Typography>
         <div className={classes.search}>

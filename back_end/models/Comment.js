@@ -1,4 +1,3 @@
-// import { Schema, model } from "mongoose";
 const {Schema, model} = require("mongoose");
 
 
@@ -28,5 +27,5 @@ const commentSchema = Schema(
 const Comment = model("Comment", commentSchema);
 
 module.exports = Comment;
-// export default Comment;
+
 

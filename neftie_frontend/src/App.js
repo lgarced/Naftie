@@ -23,7 +23,7 @@ function getToken() {
 const App = () => {
  const { user, login, logout } = useContext(AuthContext);
 const [token, setToken] = useState(getToken());
-useEffect(() => {
+useEffect(() => { 
  console.log(user)
  setToken(user);
 }, [user]);

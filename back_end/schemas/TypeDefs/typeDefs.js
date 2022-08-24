@@ -21,6 +21,9 @@ scalar Date
     _id: ID
     message: String
     creator: String
+    tags: [String]
+    selectedFile: String
+    likeCount: Int
     createdAt: Date
     comments: [Comment]!
   }
@@ -54,12 +57,12 @@ scalar Date
 
   type Query {
     users: [User]
-    user(username: String!): User
-    posts(username: String): [Post]
+    user(user: String!): User
+    posts(user: String): [Post]
     post(postId: ID!): Post
     me: User
   }
-
+ 
   type Mutation {
     addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
@@ -72,5 +75,6 @@ scalar Date
 
 module.exports = typeDefs;
 // export default typeDefs;
-
+//What is user name ? where is it devfined ?? username is defined on the query but no where else
+//mutations need to be improved on the backend
 

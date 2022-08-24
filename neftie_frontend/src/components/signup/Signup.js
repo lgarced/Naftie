@@ -13,9 +13,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import SignIn from "../login/Login";
 import { AuthContext } from "../../utils/authContext";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import {useMutation } from "@apollo/react-hooks";
 import { ADD_USER } from "../../utils/mutations";
 
 function Copyright(props) {
@@ -53,14 +52,15 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    // console.log({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // });
   };
   const handleChange = (event) => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
+
   };
 
   return (

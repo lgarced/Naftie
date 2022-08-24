@@ -17,7 +17,7 @@ import {
 import { Add as AddIcon, Copyright } from "@material-ui/icons";
 import { useState, useContext } from "react";
 import MuiAlert from "@material-ui/lab/Alert";
-import { set } from "mongoose";
+// import { set } from "mongoose";
 import { ADD_POST } from "../utils/mutations";
 import { useMutation } from '@apollo/client';
 import { AuthContext } from "../utils/authContext";
@@ -57,14 +57,16 @@ function Alert(props) {
 
 const Add = () => {
   const classes = useStyles();
+  const [addPost] = useMutation(ADD_POST);
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const { user } = useContext(AuthContext);
   console.log("This is the user!", user)
 
- const [ postForm, setpostForm ] = useState({title: "", description: "", visibility: "Public", canComment: ""});
-
-  const [addPost] = useMutation(ADD_POST);
+ const [ postForm, setpostForm ] = useState({title: "",
+                                           description: "",
+                                           visibility: "Public",
+                                            canComment: ""});
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -75,6 +77,7 @@ const Add = () => {
   };
   const handleChange = (event) => {
     const { name, value } = event.target
+    console.log(event.target.name, event.target.value)
     setpostForm(prev => ({ ...prev, [name]: value }))
   }
   return (
@@ -113,46 +116,21 @@ const Add = () => {
               />
             </div>
             <div className={classes.item}>
-              <TextField select label="Visibility" value="Public">
-                <MenuItem value="Public">Public</MenuItem>
-                <MenuItem value="Private">Private</MenuItem>
-                <MenuItem value="Unlisted">Unlisted</MenuItem>
-              </TextField>
-            </div>
-            <div className={classes.item}>
-              <FormLabel component="legend">Who can comment?</FormLabel>
-              <RadioGroup>
-                <FormControlLabel
-                  value="Everybody"
-                  control={<Radio size="small" />}
-                  label="Everybody"
-                />
-                <FormControlLabel
-                  value="My Friends"
-                  control={<Radio size="small" />}
-                  label="My Friends"
-                />
-                <FormControlLabel
-                  value="Nobody"
-                  control={<Radio size="small" />}
-                  label="Nobody"
-                />
-                <FormControlLabel
-                  value="Custom"
-                  disabled
-                  control={<Radio size="small" />}
-                  label="Custom (Premium)"
-                />
-              </RadioGroup>
-            </div>
-            <div className={classes.item}>
               <Button
                 variant="outlined"
                 color="primary"
                 style={{ marginRight: 20 }}
-                onClick={() =>{ 
+                onClick={() =>{
                   setOpenAlert(true)
-                  addPost()
+                  addPost({
+                    variables: {
+                      title: postForm.title,
+                      description: postForm.description,
+                      visibility: postForm.visibility,
+                      canComment: postForm.canComment,
+                      user: user.id,
+                    }
+                  })
                 }}
               >
                 Create

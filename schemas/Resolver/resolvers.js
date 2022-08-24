@@ -1,9 +1,9 @@
 // import { AuthenticationError } from "apollo-server-express";
 // import { User, Post, Comment, Message } from "./models/index.js";
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Post } = require("../../back_end/models/index.js");
-const { signToken } = require("../../back_end/utils/auth");
-const {logout} = require("../../back_end/utils/auth");
+const { User, Post } = require("../../models/index.js");
+const { signToken } = require("../../utils/auth");
+const {logout} = require("../../utils/auth");
 
 const resolvers = {
   Query: {

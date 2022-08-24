@@ -7,8 +7,7 @@
     "start": "node back_end/index.js",
     "develop": "concurrently \"cd back_end && npm run watch\" \"cd neftie_frontend && npm start\"",
     "install": "cd back_end && npm i",
-    "seed": "cd back_end && npm run seed",
-    "build": "cd neftie_frontend && npm run build"
+    "seed": "cd back_end && npm run seed"
   },
   "keywords": [],
   "author": "",

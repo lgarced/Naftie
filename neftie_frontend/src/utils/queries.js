@@ -46,4 +46,20 @@ export const QUERY_USER = gql`
     }
   }
 `
+export const QUERY_POSTS = gql`
+  {
+    posts {
+      _id
+      message
+      creator
+      createdAt
+      comments {
+        _id
+        user
+        comment
+        createdAt
+      }
+    }
+  }
+`
 

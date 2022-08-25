@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Button,
   Container,
@@ -13,14 +13,15 @@ import {
   Snackbar,
   TextField,
   Tooltip,
-} from "@material-ui/core";
-import { Add as AddIcon, Copyright } from "@material-ui/icons";
-import { useState, useContext } from "react";
-import MuiAlert from "@material-ui/lab/Alert";
-import { set } from "mongoose";
-import { ADD_POST } from "../utils/mutations";
-import { useMutation } from '@apollo/client';
-import { AuthContext } from "../utils/authContext";
+} from "@material-ui/core"
+import { Add as AddIcon, Copyright } from "@material-ui/icons"
+import { useState, useContext } from "react"
+import MuiAlert from "@material-ui/lab/Alert"
+import { set } from "mongoose"
+import { ADD_POST } from "../utils/mutations"
+import { useMutation } from "@apollo/client"
+import { AuthContext } from "../utils/authContext"
+import { QUERY_USER } from "../utils/queries"
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -49,33 +50,55 @@ const useStyles = makeStyles((theme) => ({
   item: {
     marginBottom: theme.spacing(3),
   },
-}));
+}))
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
 const Add = () => {
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
-  const { user } = useContext(AuthContext);
+  const classes = useStyles()
+  const [open, setOpen] = useState(false)
+  const [openAlert, setOpenAlert] = useState(false)
+  const { user } = useContext(AuthContext)
   console.log("This is the user!", user)
 
- const [ postForm, setpostForm ] = useState({title: "", description: "", visibility: "Public", canComment: ""});
+  const [postForm, setpostForm] = useState({
+    title: "",
+    description: "",
+    visibility: "Public",
+    canComment: "",
+  })
 
-  const [addPost] = useMutation(ADD_POST);
+  const [addPost] = useMutation(ADD_POST, {
+    update(cache, { data: { addPost } }) {
+      try {
+        const { post } = cache.readQuery({ query: QUERY_POST })
+
+        cache.writeQuery({
+          query: QUERY_POST,
+          data: { post: [addPost, ...post] },
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    },
+  });
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
-      return;
+      return
     }
 
-    setOpenAlert(false);
-  };
+    setOpenAlert(false)
+  }
   const handleChange = (event) => {
     const { name, value } = event.target
-    setpostForm(prev => ({ ...prev, [name]: value }))
+    setpostForm((prev) => ({ ...prev, [name]: value }))
+  }
+  const likeHandler = () => {
+    setLike(isLiked ? like - 1 : like + 1)
+    setIsLiked(!isLiked)
   }
   return (
     <>
@@ -90,7 +113,7 @@ const Add = () => {
             <div className={classes.item}>
               <TextField
                 id="standard-basic"
-                value = {postForm.title}
+                value={postForm.title}
                 label="Title"
                 size="small"
                 style={{ width: "100%" }}
@@ -150,7 +173,7 @@ const Add = () => {
                 variant="outlined"
                 color="primary"
                 style={{ marginRight: 20 }}
-                onClick={() =>{ 
+                onClick={() => {
                   setOpenAlert(true)
                   addPost()
                 }}
@@ -179,7 +202,7 @@ const Add = () => {
         </Alert>
       </Snackbar>
     </>
-  );
-};
+  )
+}
 
-export default Add;
+export default Add

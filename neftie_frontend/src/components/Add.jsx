@@ -19,7 +19,7 @@ import { useState, useContext } from "react";
 import MuiAlert from "@material-ui/lab/Alert";
 // import { set } from "mongoose";
 import { ADD_POST } from "../utils/mutations";
-import { useMutation } from '@apollo/client';
+import { useMutation } from "@apollo/client";
 import { AuthContext } from "../utils/authContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,17 +57,24 @@ function Alert(props) {
 
 const Add = () => {
   const classes = useStyles();
-  const [addPost] = useMutation(ADD_POST);
-  const [open, setOpen] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
+
   const { user } = useContext(AuthContext);
-  console.log("This is the user!", user)
+  console.log("This is the user!", user);
 
- const [ postForm, setpostForm ] = useState({title: "",
-                                           description: "",
-                                           visibility: "Public",
-                                            canComment: ""});
+  const [addPost] = useMutation(ADD_POST);
 
+  const [open, setOpen] = useState(false);
+
+  const [openAlert, setOpenAlert] = useState(false);
+
+
+  const [postForm, setpostForm] = useState({
+    message: "",
+  });
+  // creator: user.id,
+  // tags: "",
+  // likeCount: 0,
+  // comments: [],
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -75,11 +82,39 @@ const Add = () => {
 
     setOpenAlert(false);
   };
+
   const handleChange = (event) => {
-    const { name, value } = event.target
-    console.log(event.target.name, event.target.value)
-    setpostForm(prev => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = event.target;
+    console.log(event.target.name, event.target.value);
+    setpostForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log("This is the postForm", postForm);
+    addPost({
+      variables: {
+        message: postForm.message,
+        creator: user.id,
+      },
+    })
+      .then((res) => {
+        console.log("This is the res", res);
+        setOpen(false);
+        setpostForm({
+          message: "",
+        });
+      })
+      .catch((err) => {
+        console.log("This is the err", err);
+        setOpenAlert(true);
+      })
+      .finally(() => {
+        setOpen(false);
+      });
+  };
+
   return (
     <>
       <Tooltip title="Add" aria-label="add" onClick={() => setOpen(true)}>
@@ -90,7 +125,7 @@ const Add = () => {
       <Modal open={open}>
         <Container className={classes.container}>
           <form className={classes.form} autoComplete="off">
-            <div className={classes.item}>
+            {/* <div className={classes.item}>
               <TextField
                 id="standard-basic"
                 value = {postForm.title}
@@ -100,19 +135,20 @@ const Add = () => {
                 onChange={handleChange}
                 name="title"
               />
-            </div>
+            </div> */}
             <div className={classes.item}>
               <TextField
+                placeholder="What's on your mind?"
                 id="outlined-multiline-static"
                 multiline
                 rows={4}
-                value={postForm.description}
+                value={postForm.message}
                 variant="outlined"
-                label="Description"
-                size="small"
+                label="Message"
+                size="medium"
                 style={{ width: "100%" }}
                 onChange={handleChange}
-                name="description"
+                name="message"
               />
             </div>
             <div className={classes.item}>
@@ -120,17 +156,16 @@ const Add = () => {
                 variant="outlined"
                 color="primary"
                 style={{ marginRight: 20 }}
-                onClick={() =>{
-                  setOpenAlert(true)
+                onSubmit={handleSubmit}
+                onClick={() => {
+                  setOpenAlert(true);
                   addPost({
                     variables: {
-                      title: postForm.title,
-                      description: postForm.description,
-                      visibility: postForm.visibility,
-                      canComment: postForm.canComment,
-                      user: user.id,
-                    }
-                  })
+                      message: postForm.message,
+                      // creator: user.id,
+                      // tags: postForm.tags,
+                    },
+                  });
                 }}
               >
                 Create

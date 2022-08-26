@@ -37,15 +37,17 @@ export const ADD_USER = gql`
 
 export const ADD_POST = gql`
   mutation addPost(
-    $userId: ID!
+    $creator: String!
     $message: String!
   ) {
     addPost(
-      userId: $userId
+      creator: $creator
       message: $message
     ) {
       _id
       message
+      creator 
+      tags
       createdAt
       user {
         _id
@@ -55,8 +57,15 @@ export const ADD_POST = gql`
     }
   }
 `;
-
-
+//  typedef
+    // _id: ID
+    // message: String
+    // creator: String
+    // tags: [String]
+    // selectedFile: String
+    // likeCount: Int
+    // createdAt: Date
+    // comments: [Comment]!
 //post needs to be design better on the backend
 // export const REMOVE_POST = gql`
 //   mutation removePost($postId: ID!) {

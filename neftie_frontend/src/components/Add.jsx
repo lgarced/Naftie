@@ -21,7 +21,7 @@ import { set } from "mongoose"
 import { ADD_POST } from "../utils/mutations"
 import { useMutation } from "@apollo/client"
 import { AuthContext } from "../utils/authContext"
-import { QUERY_USER } from "../utils/queries"
+import { QUERY_USER, QUERY_POSTS, QUERY_POST } from "../utils/queries"
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -65,15 +65,14 @@ const Add = () => {
 
   const [postForm, setpostForm] = useState({
     title: "",
-    description: "",
-    visibility: "Public",
-    canComment: "",
+    message: "",
+    commentAuthor: "",
   })
 
   const [addPost] = useMutation(ADD_POST, {
     update(cache, { data: { addPost } }) {
       try {
-        const { post } = cache.readQuery({ query: QUERY_POST })
+        const { post } = cache.readQuery({ query: QUERY_POSTS })
 
         cache.writeQuery({
           query: QUERY_POST,
@@ -95,10 +94,6 @@ const Add = () => {
   const handleChange = (event) => {
     const { name, value } = event.target
     setpostForm((prev) => ({ ...prev, [name]: value }))
-  }
-  const likeHandler = () => {
-    setLike(isLiked ? like - 1 : like + 1)
-    setIsLiked(!isLiked)
   }
   return (
     <>
@@ -126,13 +121,13 @@ const Add = () => {
                 id="outlined-multiline-static"
                 multiline
                 rows={4}
-                value={postForm.description}
+                value={postForm.message}
                 variant="outlined"
-                label="Description"
+                label="Message"
                 size="small"
                 style={{ width: "100%" }}
                 onChange={handleChange}
-                name="description"
+                name="message"
               />
             </div>
             <div className={classes.item}>
@@ -175,7 +170,12 @@ const Add = () => {
                 style={{ marginRight: 20 }}
                 onClick={() => {
                   setOpenAlert(true)
-                  addPost()
+                  addPost({
+                    variables: {
+                      title: postForm.title,
+                      message: postForm.message,
+                      commentAuthor: `${user.firstName} ${user.lastName}`,
+                    }});
                 }}
               >
                 Create

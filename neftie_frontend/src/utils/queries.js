@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client"
 
 export const QUERY_USERS = gql`
-    users {
+    query users {
       _id
       firstName
       lastName
@@ -63,3 +63,18 @@ export const QUERY_POSTS = gql`
   }
 `
 
+export const QUERY_POST = gql`
+  {
+    post {
+      _id
+      message
+      creator
+      createdAt
+      comments {
+        commentText
+        commentAuthor
+        createdAt
+      }
+    }
+  }
+`

@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Button,
   Container,
@@ -49,10 +49,10 @@ const useStyles = makeStyles((theme) => ({
   item: {
     marginBottom: theme.spacing(3),
   },
-}));
+}))
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
 const Add = () => {
@@ -68,7 +68,7 @@ const Add = () => {
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
-      return;
+      return
     }
 
     setOpenAlert(false);
@@ -87,63 +87,31 @@ const Add = () => {
       <Modal open={open}>
         <Container className={classes.container}>
           <form className={classes.form} autoComplete="off">
-            <div className={classes.item}>
+            {/* <div className={classes.item}>
               <TextField
                 id="standard-basic"
-                value = {postForm.title}
+                value={postForm.title}
                 label="Title"
                 size="small"
                 style={{ width: "100%" }}
                 onChange={handleChange}
                 name="title"
               />
-            </div>
+            </div> */}
             <div className={classes.item}>
               <TextField
+                placeholder="What's on your mind?"
                 id="outlined-multiline-static"
                 multiline
                 rows={4}
-                value={postForm.description}
+                value={postForm.message}
                 variant="outlined"
-                label="Description"
-                size="small"
+                label="Message"
+                size="medium"
                 style={{ width: "100%" }}
                 onChange={handleChange}
-                name="description"
+                name="message"
               />
-            </div>
-            <div className={classes.item}>
-              <TextField select label="Visibility" value="Public">
-                <MenuItem value="Public">Public</MenuItem>
-                <MenuItem value="Private">Private</MenuItem>
-                <MenuItem value="Unlisted">Unlisted</MenuItem>
-              </TextField>
-            </div>
-            <div className={classes.item}>
-              <FormLabel component="legend">Who can comment?</FormLabel>
-              <RadioGroup>
-                <FormControlLabel
-                  value="Everybody"
-                  control={<Radio size="small" />}
-                  label="Everybody"
-                />
-                <FormControlLabel
-                  value="My Friends"
-                  control={<Radio size="small" />}
-                  label="My Friends"
-                />
-                <FormControlLabel
-                  value="Nobody"
-                  control={<Radio size="small" />}
-                  label="Nobody"
-                />
-                <FormControlLabel
-                  value="Custom"
-                  disabled
-                  control={<Radio size="small" />}
-                  label="Custom (Premium)"
-                />
-              </RadioGroup>
             </div>
             <div className={classes.item}>
               <Button
@@ -179,7 +147,7 @@ const Add = () => {
         </Alert>
       </Snackbar>
     </>
-  );
-};
+  )
+}
 
-export default Add;
+export default Add

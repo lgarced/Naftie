@@ -9,6 +9,6 @@ const Comment = require('./Comment');
 const Post = require('./Post');
 const User = require('./User');
 const Messages = require('./Messages');
+const Friends = require('./Friend');
 
-
-module.exports = {  Comment, Post, User, Messages };
+module.exports = {  Comment, Post, User, Messages, Friends };

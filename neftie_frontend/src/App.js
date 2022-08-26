@@ -14,8 +14,8 @@ function getToken() {
   const tokenString = localStorage.getItem("token");
   if (!tokenString) return false;
   const userToken = decode(tokenString) ;
-  console.log('THIS IS ALSO THE TOKEN', tokenString)
-  console.log(userToken)
+  // console.log('THIS IS ALSO THE TOKEN', tokenString)
+  // console.log(userToken)
   return userToken 
 };
 
@@ -23,8 +23,8 @@ function getToken() {
 const App = () => {
  const { user, login, logout } = useContext(AuthContext);
 const [token, setToken] = useState(getToken());
-useEffect(() => {
- console.log(user)
+useEffect(() => { 
+//  console.log(user)
  setToken(user);
 }, [user]);
 //listen for token changes 
@@ -43,7 +43,7 @@ useEffect(() => {
 }, []);
 
 
-  console.log(token)
+  // console.log(token)
   if (!token) {
     return (
 

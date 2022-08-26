@@ -57,10 +57,10 @@ function Alert(props) {
 }
 
 const Add = () => {
-  const classes = useStyles()
-  const [open, setOpen] = useState(false)
-  const [openAlert, setOpenAlert] = useState(false)
-  const { user } = useContext(AuthContext)
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+  const { user } = useContext(AuthContext);
   console.log("This is the user!", user)
 
   const [postForm, setpostForm] = useState({
@@ -89,8 +89,8 @@ const Add = () => {
       return
     }
 
-    setOpenAlert(false)
-  }
+    setOpenAlert(false);
+  };
   const handleChange = (event) => {
     const { name, value } = event.target
     setpostForm((prev) => ({ ...prev, [name]: value }))
@@ -105,7 +105,7 @@ const Add = () => {
       <Modal open={open}>
         <Container className={classes.container}>
           <form className={classes.form} autoComplete="off">
-            <div className={classes.item}>
+            {/* <div className={classes.item}>
               <TextField
                 id="standard-basic"
                 value={postForm.title}
@@ -115,9 +115,10 @@ const Add = () => {
                 onChange={handleChange}
                 name="title"
               />
-            </div>
+            </div> */}
             <div className={classes.item}>
               <TextField
+                placeholder="What's on your mind?"
                 id="outlined-multiline-static"
                 multiline
                 rows={4}
@@ -131,44 +132,11 @@ const Add = () => {
               />
             </div>
             <div className={classes.item}>
-              <TextField select label="Visibility" value="Public">
-                <MenuItem value="Public">Public</MenuItem>
-                <MenuItem value="Private">Private</MenuItem>
-                <MenuItem value="Unlisted">Unlisted</MenuItem>
-              </TextField>
-            </div>
-            <div className={classes.item}>
-              <FormLabel component="legend">Who can comment?</FormLabel>
-              <RadioGroup>
-                <FormControlLabel
-                  value="Everybody"
-                  control={<Radio size="small" />}
-                  label="Everybody"
-                />
-                <FormControlLabel
-                  value="My Friends"
-                  control={<Radio size="small" />}
-                  label="My Friends"
-                />
-                <FormControlLabel
-                  value="Nobody"
-                  control={<Radio size="small" />}
-                  label="Nobody"
-                />
-                <FormControlLabel
-                  value="Custom"
-                  disabled
-                  control={<Radio size="small" />}
-                  label="Custom (Premium)"
-                />
-              </RadioGroup>
-            </div>
-            <div className={classes.item}>
               <Button
                 variant="outlined"
                 color="primary"
                 style={{ marginRight: 20 }}
-                onClick={() => {
+                onClick={() =>{ 
                   setOpenAlert(true)
                   addPost({
                     variables: {

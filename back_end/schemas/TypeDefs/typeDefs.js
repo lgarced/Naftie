@@ -3,7 +3,7 @@ const { gql} = require("apollo-server-express");
 
 
 const typeDefs = gql`
-scalar Date
+  scalar Date
 
   type User {
     _id: ID
@@ -21,9 +21,30 @@ scalar Date
     _id: ID
     message: String
     creator: String
+    tags: [String]
+    selectedFile: String
+    likeCount: Int
     createdAt: Date
     comments: [Comment]!
   }
+  type postResponse {
+    success: Boolean
+    post: Post
+  }
+  # input PostData {
+  #   _id: Int!
+  #   message: String
+  #   creatorId: ID!
+  #   likes: Int
+  # }
+
+  # input AuthorData {
+  #   id: Int!
+  #   firstName: String
+  #   lastName: String
+  #   posts: [Post]
+  # }
+
 
   type Friend {
     _id: ID
@@ -54,23 +75,39 @@ scalar Date
 
   type Query {
     users: [User]
-    user(username: String!): User
-    posts(username: String): [Post]
+    user(user: String!): User
+    posts(user: String): [Post]
     post(postId: ID!): Post
     me: User
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+    addUser(
+      firstName: String!
+      lastName: String!
+      email: String!
+      password: String!
+    ): Auth
     login(email: String!, password: String!): Auth
-    addPost(message: String!): Post
+    addPost(
+      message: String!
+      creator: String!
+      tags: [String]
+      selectedFile: String
+      likeCount: Int
+      createdAt: Date
+    ): postResponse
+    # addPost(input: [Post!]!): Post
     addComment(postId: ID!, commentText: String!): Comment
     removePost(postId: ID!): Post
     removeComment(postId: ID!, commentId: ID!): Comment
   }
 `;
 
+
+
 module.exports = typeDefs;
 // export default typeDefs;
-
+//What is user name ? where is it devfined ?? username is defined on the query but no where else
+//mutations need to be improved on the backend
 

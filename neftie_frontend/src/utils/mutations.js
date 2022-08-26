@@ -42,11 +42,13 @@ export const ADD_POST = gql`
     $comment: String!
   ) {
     addPost(
-      userId: $userId
+      creator: $creator
       message: $message
     ) {
       _id
       message
+      creator 
+      tags
       createdAt
       user {
         _id
@@ -56,6 +58,21 @@ export const ADD_POST = gql`
     }
   }
 `;
+//  typedef
+    // _id: ID
+    // message: String
+    // creator: String
+    // tags: [String]
+    // selectedFile: String
+    // likeCount: Int
+    // createdAt: Date
+    // comments: [Comment]!
+//post needs to be design better on the backend
+// export const REMOVE_POST = gql`
+//   mutation removePost($postId: ID!) {
+//     removePost(postId: $postId) {
+//       _id
+//       messa
 
 export const ADD_COMMENT = gql`
   mutation addComment(
@@ -79,6 +96,41 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
+
+export const REMOVE_COMMENT = gql`
+  mutation removeComment(
+    $commentId: ID!
+    $postId: ID!
+  ) {
+    removeComment(
+      commentId: $commentId
+      postId: $postId
+    ) {
+      _id
+      comment
+      createdAt
+      user {
+        _id
+        firstName
+        lastName
+      }
+    }
+  }
+`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // export const ADD_ORDER = gql`
 //   mutation addOrder($products: [ID]!) {

@@ -1,24 +1,19 @@
 // import mongoose from 'mongoose';
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    minlength: 3,
-      } ,
-      message: String,
-      creator: String,
-      tags: [String],
-      selectedFile: String,
-      likeCount: {
-        type: Number,
-        default: 0,
-      },
-      createdAt: {
-        type: Date,
-        default: new Date(),
-      },
+  message: String,
+  creator: String,
+  tags: [String],
+  selectedFile: String,
+  likeCount: {
+    type: Number,
+    default: 0,
+  },
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
   comments: [
     {
       commentText: {
@@ -40,9 +35,7 @@ const postSchema = mongoose.Schema({
   ],
 });
 
-
-const Post = mongoose.model("PostMessage", postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 module.exports = Post;
 // export default Post;
-

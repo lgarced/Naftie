@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { ApolloServer } = require('apollo-server-express');
-const { typeDefs, resolvers } = require('./Schemas/index.js');
+const { typeDefs, resolvers } = require('./schemas/index.js');
 const db = require('./config/connection.js');
 const { authMiddleware } = require("./utils/auth");
 
@@ -25,6 +25,12 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../neftie_frontend/build/index.html"));
 });
+
+
+//FOR TESTING PURPOSES
+app.get("/whoami", (req,res)=> {
+  res.send("<h1>THIS IS NAFTIE, THE ILLEST SOCIAL MEDIA PLATFORM!</h1>")
+})
 
 
 const startApolloServer = async (typeDefs, resolvers) => {

@@ -9,15 +9,13 @@ import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-// import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import Signup from "../signup/Signup";
 import { images } from "../../constants";
 import { Link as Pathway } from "react-router-dom";
 import { AuthContext } from "../../utils/authContext";
 import { LOGIN } from "../../utils/mutations";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 
 function Copyright(props) {
   return (
@@ -40,7 +38,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
- const { user, login, logout} = useContext(AuthContext);
+ const { login} = useContext(AuthContext);
  const [userlogin,{error, data}] = useMutation(LOGIN);
  const [form, setForm] = useState({
     email: "",
@@ -61,7 +59,6 @@ export default function SignInSide() {
           const { data } = await userlogin({
             variables: { ...form },
           });
-          console.log('This is the data from GQL', data)
           login(data.login.token);
         } catch (e) {
           console.error(e);
@@ -72,10 +69,10 @@ export default function SignInSide() {
           email: "",
           password: "",
         });
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    // console.log({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // });
   };
   return (
  

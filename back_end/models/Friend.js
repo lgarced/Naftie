@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+const { Schema, model } = require("mongoose")
 
 const friendSchema = Schema(
   {
@@ -26,3 +26,7 @@ const friendSchema = Schema(
     id: false,
   }
 )
+
+const Friends = model("Friends", friendSchema);
+
+module.exports = Friends;

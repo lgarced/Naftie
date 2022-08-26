@@ -1,5 +1,8 @@
 import React, {useContext} from "react";
-import { Container, makeStyles, Typography } from "@material-ui/core";
+import { Container, 
+  makeStyles, 
+  Typography,
+ } from "@material-ui/core";
 import {
   Bookmark,
   List,
@@ -10,8 +13,17 @@ import {
   PlayCircleOutline,
   Settings,
   Storefront,
-  TabletMac,
+  TabletMac
 } from "@material-ui/icons";
+import {
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  Switch,
+} from "@mui/material";
+import {
+  ModeNight,
+} from "@mui/icons-material";
 import { AuthContext } from "../utils/authContext";
 
 
@@ -55,9 +67,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const Leftbar = () => {
-   const { user, login, logout } = useContext(AuthContext);
 
+const Leftbar = ({ mode, setMode }) => {
+  const { user, login, logout } = useContext(AuthContext);
   const classes = useStyles();
   return (
     <Container className={classes.container}>
@@ -98,14 +110,24 @@ const Leftbar = () => {
         <Typography className={classes.text}>Settings</Typography>
       </div>
       <div className={classes.item}>
-        <ExitToApp 
-          className={classes.icon} 
-          variant="contained" 
+        <ExitToApp
+          className={classes.icon}
+          variant="contained"
           color="secondary"
-          onClick = {logout}
-           />
+          onClick={logout}
+        />
         <Typography className={classes.text}>Log Out</Typography>
       </div>
+      <ListItem disablePadding>
+        <ListItemButton component="a" href="#simple-list">
+          <ListItemIcon>
+            <ModeNight />
+          </ListItemIcon>
+          <Switch
+            onChange={(e) => setMode(mode === "light" ? "dark" : "light")}
+          />
+        </ListItemButton>
+      </ListItem>
     </Container>
   );
 };

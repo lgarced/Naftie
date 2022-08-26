@@ -9,6 +9,8 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
+import IconButton from "@mui/material/IconButton";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -22,27 +24,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//POST HAS TO BE DEISGN ACCORDING TO THE MUTATION AND QUERY, DOCUMENTATION IS ON JIRA
 const Post = ({ img, title }) => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={img} title="My Post" />
+        <CardMedia 
+          className={classes.media} 
+          image={img}
+           title="My Post" />
         <CardContent>
           <Typography gutterBottom variant="h5">
             {title}
           </Typography>
-          <Typography variant="body2">
-            
-          </Typography>
+          <Typography variant="body2"></Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
         <Button size="small" color="primary">
           Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
         </Button>
       </CardActions>
     </Card>

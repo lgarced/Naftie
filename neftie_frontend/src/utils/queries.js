@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client"
 
+//CHECK QUERIES THAT MATCH BACKEND 
 export const QUERY_USERS = gql`
     query users {
       _id

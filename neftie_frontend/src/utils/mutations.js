@@ -37,8 +37,9 @@ export const ADD_USER = gql`
 
 export const ADD_POST = gql`
   mutation addPost(
-    $creator: String!
+    $title: String!
     $message: String!
+    $comment: String!
   ) {
     addPost(
       creator: $creator

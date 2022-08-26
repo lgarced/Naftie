@@ -13,14 +13,15 @@ import {
   Snackbar,
   TextField,
   Tooltip,
-} from "@material-ui/core";
-import { Add as AddIcon, Copyright } from "@material-ui/icons";
-import { useState, useContext } from "react";
-import MuiAlert from "@material-ui/lab/Alert";
-import { set } from "mongoose";
-import { ADD_POST } from "../utils/mutations";
-import { useMutation } from '@apollo/client';
-import { AuthContext } from "../utils/authContext";
+} from "@material-ui/core"
+import { Add as AddIcon, Copyright } from "@material-ui/icons"
+import { useState, useContext } from "react"
+import MuiAlert from "@material-ui/lab/Alert"
+import { set } from "mongoose"
+import { ADD_POST } from "../utils/mutations"
+import { useMutation } from "@apollo/client"
+import { AuthContext } from "../utils/authContext"
+import { QUERY_USER, QUERY_POSTS, QUERY_POST } from "../utils/queries"
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -62,9 +63,26 @@ const Add = () => {
   const { user } = useContext(AuthContext);
   console.log("This is the user!", user)
 
- const [ postForm, setpostForm ] = useState({title: "", description: "", visibility: "Public", canComment: ""});
+  const [postForm, setpostForm] = useState({
+    title: "",
+    message: "",
+    commentAuthor: "",
+  })
 
-  const [addPost] = useMutation(ADD_POST);
+  const [addPost] = useMutation(ADD_POST, {
+    update(cache, { data: { addPost } }) {
+      try {
+        const { post } = cache.readQuery({ query: QUERY_POSTS })
+
+        cache.writeQuery({
+          query: QUERY_POST,
+          data: { post: [addPost, ...post] },
+        })
+      } catch (e) {
+        console.error(e)
+      }
+    },
+  });
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -75,7 +93,7 @@ const Add = () => {
   };
   const handleChange = (event) => {
     const { name, value } = event.target
-    setpostForm(prev => ({ ...prev, [name]: value }))
+    setpostForm((prev) => ({ ...prev, [name]: value }))
   }
   return (
     <>
@@ -107,7 +125,7 @@ const Add = () => {
                 value={postForm.message}
                 variant="outlined"
                 label="Message"
-                size="medium"
+                size="small"
                 style={{ width: "100%" }}
                 onChange={handleChange}
                 name="message"
@@ -120,7 +138,12 @@ const Add = () => {
                 style={{ marginRight: 20 }}
                 onClick={() =>{ 
                   setOpenAlert(true)
-                  addPost()
+                  addPost({
+                    variables: {
+                      title: postForm.title,
+                      message: postForm.message,
+                      commentAuthor: `${user.firstName} ${user.lastName}`,
+                    }});
                 }}
               >
                 Create

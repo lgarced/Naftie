@@ -2,7 +2,7 @@ import { gql } from "@apollo/client"
 
 //CHECK QUERIES THAT MATCH BACKEND 
 export const QUERY_USERS = gql`
-    users {
+    query users {
       _id
       firstName
       lastName
@@ -47,7 +47,6 @@ export const QUERY_USER = gql`
     }
   }
 `
-
 export const QUERY_POSTS = gql`
   {
     posts {
@@ -59,6 +58,22 @@ export const QUERY_POSTS = gql`
         _id
         user
         comment
+        createdAt
+      }
+    }
+  }
+`
+
+export const QUERY_POST = gql`
+  {
+    post {
+      _id
+      message
+      creator
+      createdAt
+      comments {
+        commentText
+        commentAuthor
         createdAt
       }
     }

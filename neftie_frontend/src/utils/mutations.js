@@ -37,27 +37,25 @@ export const ADD_USER = gql`
 
 export const ADD_POST = gql`
   mutation addPost(
-    $title: String!
     $message: String!
-    $comment: String!
+    $creator: String!
   ) {
     addPost(
-      creator: $creator
       message: $message
+      creator: $creator
     ) {
-      _id
-      message
-      creator 
-      tags
-      createdAt
-      user {
+    success
+     post {
         _id
-        firstName
-        lastName
-      }
+        message
+        creator 
+        tags
+        createdAt
+     }
     }
   }
 `;
+
 //  typedef
     // _id: ID
     // message: String

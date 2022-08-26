@@ -69,20 +69,7 @@ const Add = () => {
     commentAuthor: "",
   })
 
-  const [addPost] = useMutation(ADD_POST, {
-    update(cache, { data: { addPost } }) {
-      try {
-        const { post } = cache.readQuery({ query: QUERY_POSTS })
-
-        cache.writeQuery({
-          query: QUERY_POST,
-          data: { post: [addPost, ...post] },
-        })
-      } catch (e) {
-        console.error(e)
-      }
-    },
-  });
+  const [addPost, { data, loading, error }] = useMutation(ADD_POST);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -97,6 +84,7 @@ const Add = () => {
   }
   return (
     <>
+      <p>hi</p>
       <Tooltip title="Add" aria-label="add" onClick={() => setOpen(true)}>
         <Fab color="primary" className={classes.fab}>
           <AddIcon />
@@ -140,10 +128,14 @@ const Add = () => {
                   setOpenAlert(true)
                   addPost({
                     variables: {
-                      title: postForm.title,
                       message: postForm.message,
-                      commentAuthor: `${user.firstName} ${user.lastName}`,
+                      creator: `${user.firstName} ${user.lastName}`,
                     }});
+                    console.log({
+                      variables: {
+                        message: postForm.message,
+                        creator: `${user.firstName} ${user.lastName}`,
+                      }});
                 }}
               >
                 Create

@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Button,
   Container,
@@ -13,13 +13,13 @@ import {
   Snackbar,
   TextField,
   Tooltip,
-} from "@material-ui/core"; //@mui
+} from "@material-ui/core";
 import { Add as AddIcon, Copyright } from "@material-ui/icons";
 import { useState, useContext } from "react";
 import MuiAlert from "@material-ui/lab/Alert";
-// import { set } from "mongoose";
+import { set } from "mongoose";
 import { ADD_POST } from "../utils/mutations";
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import { AuthContext } from "../utils/authContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -49,72 +49,34 @@ const useStyles = makeStyles((theme) => ({
   item: {
     marginBottom: theme.spacing(3),
   },
-}));
+}))
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
 const Add = () => {
   const classes = useStyles();
-
+  const [open, setOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
   const { user } = useContext(AuthContext);
-  console.log("This is the user!", user);
+  console.log("This is the user!", user)
+
+ const [ postForm, setpostForm ] = useState({title: "", description: "", visibility: "Public", canComment: ""});
 
   const [addPost] = useMutation(ADD_POST);
 
-  const [open, setOpen] = useState(false);
-
-  const [openAlert, setOpenAlert] = useState(false);
-
-
-  const [postForm, setpostForm] = useState({
-    message: "",
-  });
-  // creator: user.id,
-  // tags: "",
-  // likeCount: 0,
-  // comments: [],
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
-      return;
+      return
     }
 
     setOpenAlert(false);
   };
-
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    console.log(event.target.name, event.target.value);
-    setpostForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log("This is the postForm", postForm);
-    addPost({
-      variables: {
-        message: postForm.message,
-        creator: user.id,
-      },
-    })
-      .then((res) => {
-        console.log("This is the res", res);
-        setOpen(false);
-        setpostForm({
-          message: "",
-        });
-      })
-      .catch((err) => {
-        console.log("This is the err", err);
-        setOpenAlert(true);
-      })
-      .finally(() => {
-        setOpen(false);
-      });
-  };
-
+    const { name, value } = event.target
+    setpostForm(prev => ({ ...prev, [name]: value }))
+  }
   return (
     <>
       <Tooltip title="Add" aria-label="add" onClick={() => setOpen(true)}>
@@ -128,7 +90,7 @@ const Add = () => {
             {/* <div className={classes.item}>
               <TextField
                 id="standard-basic"
-                value = {postForm.title}
+                value={postForm.title}
                 label="Title"
                 size="small"
                 style={{ width: "100%" }}
@@ -156,16 +118,9 @@ const Add = () => {
                 variant="outlined"
                 color="primary"
                 style={{ marginRight: 20 }}
-                onSubmit={handleSubmit}
-                onClick={() => {
-                  setOpenAlert(true);
-                  addPost({
-                    variables: {
-                      message: postForm.message,
-                      // creator: user.id,
-                      // tags: postForm.tags,
-                    },
-                  });
+                onClick={() =>{ 
+                  setOpenAlert(true)
+                  addPost()
                 }}
               >
                 Create
@@ -192,7 +147,7 @@ const Add = () => {
         </Alert>
       </Snackbar>
     </>
-  );
-};
+  )
+}
 
-export default Add;
+export default Add

@@ -27,6 +27,6 @@ const friendSchema = Schema(
   }
 )
 
-const Friends = model("Friends", friendSchema);
+const Friends = model("Friend", friendSchema);
 
 module.exports = Friends;

@@ -129,12 +129,12 @@ const Add = () => {
                   addPost({
                     variables: {
                       message: postForm.message,
-                      creator: `${user.firstName} ${user.lastName}`,
+                      creator: `${user.data.firstName} ${user.data.lastName}`,
                     }});
                     console.log({
                       variables: {
                         message: postForm.message,
-                        creator: `${user.firstName} ${user.lastName}`,
+                        creator: `${user.data.firstName} ${user.data.lastName}`,
                       }});
                 }}
               >

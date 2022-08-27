@@ -29,7 +29,7 @@ const sendMessageSchema = Schema(
 );
 
 
-const sendMessage = model("sendMessage", sendMessageSchema);
+const sendMessage = model("Message", sendMessageSchema);
 
 module.exports = sendMessage;
 

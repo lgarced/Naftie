@@ -14,10 +14,16 @@ import {
   TextField,
   Tooltip,
 } from "@material-ui/core"
-import { Add as AddIcon, Copyright } from "@material-ui/icons"
+import Stack from "@mui/material/Stack"
+import {
+  Add as AddIcon,
+  EmojiEmotions,
+  Image,
+  PersonAdd,
+  VideoCameraBack,
+} from "@mui/icons-material";
 import { useState, useContext } from "react"
 import MuiAlert from "@material-ui/lab/Alert"
-import { set } from "mongoose"
 import { ADD_POST } from "../utils/mutations"
 import { useMutation } from "@apollo/client"
 import { AuthContext } from "../utils/authContext"
@@ -118,24 +124,32 @@ const Add = () => {
                 onChange={handleChange}
                 name="message"
               />
+              <Stack direction="row" gap={1} mt={2} mb={3}>
+                <EmojiEmotions color="primary" />
+                <Image color="secondary" />
+                <VideoCameraBack color="success" />
+                <PersonAdd color="error" />
+              </Stack>
             </div>
             <div className={classes.item}>
               <Button
                 variant="outlined"
                 color="primary"
                 style={{ marginRight: 20 }}
-                onClick={() =>{ 
-                  setOpenAlert(true)
+                onClick={() => {
+                  setOpenAlert(true);
                   addPost({
                     variables: {
                       message: postForm.message,
-                      creator: `${user.data.firstName} ${user.data.lastName}`,
-                    }});
-                    console.log({
-                      variables: {
-                        message: postForm.message,
-                        creator: `${user.data.firstName} ${user.data.lastName}`,
-                      }});
+                      creator: user.data._id,
+                    },
+                  });
+                  console.log({
+                    variables: {
+                      message: postForm.message,
+                      creator: user.data._id,
+                    },
+                  });
                 }}
               >
                 Create
@@ -162,7 +176,7 @@ const Add = () => {
         </Alert>
       </Snackbar>
     </>
-  )
+  );
 }
 
 export default Add

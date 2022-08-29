@@ -1,14 +1,27 @@
 import { gql } from "@apollo/client";
 
-
 export const LOGIN = gql`
-  mutation login($email: String!,
-               $password: String!) {
-    login(email: $email,
-         password: $password) {
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
       token
       user {
         _id
+        firstName
+        lastName
+        email
+        posts {
+          _id
+          message
+          tags
+          selectedFile
+          likeCount
+          createdAt
+          comments {
+            _id
+            comment
+            createdAt
+          }
+        }
       }
     }
   }
@@ -36,35 +49,31 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_POST = gql`
-  mutation addPost(
-    $message: String!
-    $creator: String!
-  ) {
-    addPost(
-      message: $message
-      creator: $creator
-    ) {
-    success
-     post {
+  mutation addPost($message: String!, $creator: String!) {
+    addPost(message: $message, creator: $creator) {
+      success
+      post {
         _id
         message
-        creator 
+        creator {
+          firstName
+        }
         tags
         createdAt
-     }
+      }
     }
   }
 `;
 
 //  typedef
-    // _id: ID
-    // message: String
-    // creator: String
-    // tags: [String]
-    // selectedFile: String
-    // likeCount: Int
-    // createdAt: Date
-    // comments: [Comment]!
+// _id: ID
+// message: String
+// creator: String
+// tags: [String]
+// selectedFile: String
+// likeCount: Int
+// createdAt: Date
+// comments: [Comment]!
 //post needs to be design better on the backend
 // export const REMOVE_POST = gql`
 //   mutation removePost($postId: ID!) {
@@ -73,16 +82,8 @@ export const ADD_POST = gql`
 //       messa
 
 export const ADD_COMMENT = gql`
-  mutation addComment(
-    $userId: ID!
-    $comment: String!
-    $postId: ID!
-  ) {
-    addComment(
-      userId: $userId
-      comment: $comment
-      postId: $postId
-    ) {
+  mutation addComment($userId: ID!, $comment: String!, $postId: ID!) {
+    addComment(userId: $userId, comment: $comment, postId: $postId) {
       _id
       comment
       createdAt
@@ -96,14 +97,8 @@ export const ADD_COMMENT = gql`
 `;
 
 export const REMOVE_COMMENT = gql`
-  mutation removeComment(
-    $commentId: ID!
-    $postId: ID!
-  ) {
-    removeComment(
-      commentId: $commentId
-      postId: $postId
-    ) {
+  mutation removeComment($commentId: ID!, $postId: ID!) {
+    removeComment(commentId: $commentId, postId: $postId) {
       _id
       comment
       createdAt
@@ -115,20 +110,6 @@ export const REMOVE_COMMENT = gql`
     }
   }
 `;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // export const ADD_ORDER = gql`
 //   mutation addOrder($products: [ID]!) {

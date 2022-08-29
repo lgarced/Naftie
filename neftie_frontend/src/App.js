@@ -13,6 +13,8 @@ function setToken(userToken) {
 const App = () => {
  const { user, login, logout } = useContext(AuthContext);
 const [token, setToken] = useState();
+
+
 useEffect(() => { 
 //  console.log(user)
  setToken(user);

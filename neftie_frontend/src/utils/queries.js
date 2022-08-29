@@ -17,46 +17,40 @@ export const QUERY_USERS = gql`
 `
 
 export const QUERY_USER = gql`
-  {
-    user {
+  query User($id: ID!) {
+    user(_id: $id) {
       _id
       firstName
       lastName
       email
-      password
       posts {
-        _id
         message
-        creator
-        createdAt
-        comments {
-          _id
-          user
-          comment
-          createdAt
-        }
-      }
-      friends
-      messages
-      comment {
-        _id
-        user
-        comment
-        createdAt
+        # creator {
+        #   firstName
+        #   lastName
+        #   createdAt
+        # }
       }
     }
   }
-`
+`;
 export const QUERY_POSTS = gql`
   {
     posts {
       _id
       message
-      creator
+      creator {
+        firstName
+      }
       createdAt
       comments {
         _id
-        user
+        user {
+          _id
+          firstName
+          lastName
+          email
+        }
         comment
         createdAt
       }

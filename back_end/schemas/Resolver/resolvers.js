@@ -10,12 +10,12 @@ const resolvers = {
     users: async () => {
       return User.find().populate("posts");
     },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate("posts");
+    user: async (_, { _id }) => {
+      return User.findOne({ _id }).populate("posts");
     },
-    posts: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Post.find(params).sort({ createdAt: -1 });
+    posts: async (_, { username }) => {
+      // const params = username ? { username } : {};
+      return Post.find().sort({ createdAt: -1 });
     },
     post: async (_, { postId }) => {
       return Post.findOne({ _id: postId });
@@ -64,6 +64,7 @@ const resolvers = {
     },
     addPost: async (_, payload, context) => {
       console.log("payload", payload);
+      console.log("context", context);
       try{
 
         const newPost = await Post.create(payload);

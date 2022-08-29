@@ -54,12 +54,12 @@ export default function SignInSide() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    // const data = new FormData(event.currentTarget);
         try {
           const { data } = await userlogin({
             variables: { ...form },
           });
-          login(data.login.token);
+          login(data.login.token, data.login.user);
         } catch (e) {
           console.error(e);
         }

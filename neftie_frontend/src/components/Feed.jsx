@@ -7,7 +7,7 @@ import { useQuery } from '@apollo/client';
 import { useEffect } from 'react';
 // import { Users } from "../../dummyData";
 import { MoreVert } from "@material-ui/icons";
-
+import { QUERY_POSTS } from '../utils/queries';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Feed = () => {
   const classes = useStyles();
+  const {data, loading, error} = useQuery(QUERY_POSTS); 
+  console.log(data)
   // const [like, setLike] = useState(post.like);
   // const [isLiked, setIsLiked] = useState(false);
   //   const [state, dispatch] = useContext();

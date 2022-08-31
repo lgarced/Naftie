@@ -9,8 +9,8 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import { IconButton, Checkbox } from "@mui/material";
+import {FavoriteIcon, FavoriteBorder, Favorite} from "@mui/icons-material";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -30,10 +30,7 @@ const Post = ({ img, title }) => {
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <CardMedia 
-          className={classes.media} 
-          image={img}
-           title="My Post" />
+        <CardMedia className={classes.media} image={img} title="My Post" />
         <CardContent>
           <Typography gutterBottom variant="h5">
             {title}
@@ -43,7 +40,10 @@ const Post = ({ img, title }) => {
       </CardActionArea>
       <CardActions>
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <Checkbox
+            icon={<FavoriteBorder />}
+            checkedIcon={<Favorite sx={{ color: "red" }} />}
+          />
         </IconButton>
         <Button size="small" color="primary">
           Share

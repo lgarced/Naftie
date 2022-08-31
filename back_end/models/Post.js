@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
   message: String,
-  creator: String,
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   tags: [String],
   selectedFile: String,
   likeCount: {

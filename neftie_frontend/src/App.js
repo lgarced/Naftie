@@ -10,38 +10,42 @@ function setToken(userToken) {
   localStorage.setItem("token", JSON.stringify(userToken));
 };
 
-function getToken() {
-  const tokenString = localStorage.getItem("token");
-  if (!tokenString) return false;
-  const userToken = decode(tokenString) ;
-  // console.log('THIS IS ALSO THE TOKEN', tokenString)
-  // console.log(userToken)
-  return userToken 
-};
-
-
 const App = () => {
  const { user, login, logout } = useContext(AuthContext);
-const [token, setToken] = useState(getToken());
+const [token, setToken] = useState();
+
+
 useEffect(() => { 
 //  console.log(user)
  setToken(user);
 }, [user]);
 //listen for token changes 
  useEffect(() => {
-  function checkUserData() {
-    const item = localStorage.getItem("token");
-    console.log(item);
-    setToken(getToken());
+   function checkUserData() {
+    console.log("checking user data")
+    const token = getToken()
+    setToken(token);
+    // login(token)
   }
 
   window.addEventListener("storage", checkUserData);
+  window.addEventListener("load", checkUserData);
 
   return () => {
     window.removeEventListener("storage", checkUserData);
+    window.removeEventListener("load", checkUserData);
   };
 }, []);
 
+function getToken() {
+  const tokenString = localStorage.getItem("token");
+  if (!tokenString) return false;
+  const userToken = decode(tokenString) ;
+  console.log('THIS IS ALSO THE TOKEN', tokenString)
+  console.log(userToken)
+  tokenString && login(tokenString)
+  return userToken 
+};
 
   // console.log(token)
   if (!token) {

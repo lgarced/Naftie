@@ -17,7 +17,6 @@ import {
 import { Add as AddIcon, Copyright } from "@material-ui/icons";
 import { useState, useContext } from "react";
 import MuiAlert from "@material-ui/lab/Alert";
-// import { set } from "mongoose";
 import { ADD_POST } from "../utils/mutations";
 import { useMutation } from '@apollo/client';
 import { AuthContext } from "../utils/authContext";

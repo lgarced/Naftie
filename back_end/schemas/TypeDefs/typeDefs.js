@@ -6,27 +6,28 @@ const typeDefs = gql`
   scalar Date
 
   type User {
-    _id: ID
+    _id: ID!
     firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    posts: [Post]!
+    lastName: String
+    email: String
+    password: String
+    posts: [Post]
     createdAt: Date
-    friends: [User]!
-    messages: [Message]!
+    friends: [User]
+    messages: [Message]
   }
 
   type Post {
     _id: ID
     message: String
-    creator: String
+    creator: User
     tags: [String]
     selectedFile: String
     likeCount: Int
     createdAt: Date
-    comments: [Comment]!
+    comments: [Comment]
   }
+
   type postResponse {
     success: Boolean
     post: Post
@@ -75,8 +76,8 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
-    user(user: String!): User
-    posts(user: String): [Post]
+    user(_id: ID!): User
+    posts: [Post]
     post(postId: ID!): Post
     me: User
   }

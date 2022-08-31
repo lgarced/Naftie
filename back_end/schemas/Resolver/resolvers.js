@@ -68,8 +68,9 @@ const resolvers = {
       try{
 
         const newPost = await Post.create(payload);
-        
-        return {success: true, post: newPost};
+        // const newPostWithUser = await newPost.populate("creator");
+        const newPostWithUser = await Post.findById(newPost._id).populate("creator");
+        return {success: true, post: newPostWithUser};
       }catch(err){
         console.log(err);
         return {success: false, post: null}

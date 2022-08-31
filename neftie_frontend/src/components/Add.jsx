@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import {
   Button,
   Container,
@@ -13,21 +13,22 @@ import {
   Snackbar,
   TextField,
   Tooltip,
-} from "@material-ui/core"
-import Stack from "@mui/material/Stack"
+} from "@material-ui/core";
+import Stack from "@mui/material/Stack";
 import {
   Add as AddIcon,
   EmojiEmotions,
+  FirstPage,
   Image,
   PersonAdd,
   VideoCameraBack,
 } from "@mui/icons-material";
-import { useState, useContext } from "react"
-import MuiAlert from "@material-ui/lab/Alert"
-import { ADD_POST } from "../utils/mutations"
-import { useMutation } from "@apollo/client"
-import { AuthContext } from "../utils/authContext"
-import { QUERY_USER, QUERY_POSTS, QUERY_POST } from "../utils/queries"
+import { useState, useContext } from "react";
+import MuiAlert from "@material-ui/lab/Alert";
+import { ADD_POST } from "../utils/mutations";
+import { useMutation } from "@apollo/client";
+import { AuthContext } from "../utils/authContext";
+import { QUERY_USER, QUERY_POSTS, QUERY_POST } from "../utils/queries";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -56,10 +57,10 @@ const useStyles = makeStyles((theme) => ({
   item: {
     marginBottom: theme.spacing(3),
   },
-}))
+}));
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const Add = () => {
@@ -67,27 +68,27 @@ const Add = () => {
   const [open, setOpen] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
   const { user } = useContext(AuthContext);
-  console.log("This is the user!", user)
+  console.log("This is the user!", user);
 
   const [postForm, setpostForm] = useState({
     title: "",
     message: "",
     commentAuthor: "",
-  })
+  });
 
   const [addPost, { data, loading, error }] = useMutation(ADD_POST);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
-      return
+      return;
     }
 
     setOpenAlert(false);
   };
   const handleChange = (event) => {
-    const { name, value } = event.target
-    setpostForm((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = event.target;
+    setpostForm((prev) => ({ ...prev, [name]: value }));
+  };
   return (
     <>
       <p>hi</p>
@@ -147,7 +148,12 @@ const Add = () => {
                   console.log({
                     variables: {
                       message: postForm.message,
-                      creator: user.data._id,
+                      creator: {
+                        _id: user.data._id,
+                        firstName: user.data.firstName,
+                        lastName: user.data.lastName,
+                        email: user.data.email,
+                      },
                     },
                   });
                 }}
@@ -177,6 +183,6 @@ const Add = () => {
       </Snackbar>
     </>
   );
-}
+};
 
-export default Add
+export default Add;

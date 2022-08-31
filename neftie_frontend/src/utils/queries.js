@@ -35,28 +35,14 @@ export const QUERY_USER = gql`
   }
 `;
 export const QUERY_POSTS = gql`
-  {
+  query Posts {
     posts {
       _id
       message
-      creator {
-        firstName
-      }
       createdAt
-      comments {
-        _id
-        user {
-          _id
-          firstName
-          lastName
-          email
-        }
-        comment
-        createdAt
-      }
     }
   }
-`
+`;
 
 export const QUERY_POST = gql`
   {

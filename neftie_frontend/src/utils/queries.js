@@ -35,11 +35,17 @@ export const QUERY_USER = gql`
   }
 `;
 export const QUERY_POSTS = gql`
-  query Posts {
+   query Posts {
     posts {
       _id
       message
       createdAt
+      creator {
+        _id
+        firstName
+        lastName
+      }
+      likeCount
     }
   }
 `;

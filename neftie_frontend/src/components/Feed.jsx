@@ -1,80 +1,91 @@
-import React, { useContext, useMutation, useState } from "react";
-import { Container, makeStyles } from "@material-ui/core";
-import Post from "./Post";
-import { images } from "../constants";
-import { ADD_POST } from "../utils/mutations";
-import { useQuery } from "@apollo/client";
-import { useEffect } from "react";
-import { MoreVert } from "@material-ui/icons";
-import { QUERY_POSTS } from "../utils/queries";
-import { useLazyQuery } from "@apollo/client";
-import { AuthContext } from "../utils/authContext";
+import React, { useContext, useMutation, useState } from "react"
+import { Container, makeStyles } from "@material-ui/core"
+import Post from "./Post"
+import { images } from "../constants"
+import { ADD_POST } from "../utils/mutations"
+import { useQuery } from "@apollo/client"
+import { useEffect } from "react"
+import { MoreVert } from "@material-ui/icons"
+import { QUERY_POSTS } from "../utils/queries"
+import { useLazyQuery } from "@apollo/client"
+import { AuthContext } from "../utils/authContext"
 
 const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(10),
   },
-}));
+}))
 
 const Feed = () => {
-  const classes = useStyles();
-  const [getPosts, { data }] = useLazyQuery(QUERY_POSTS);
-   const { user } = useContext(AuthContext);
-   console.log("This is the user!", user);
-   
-  const gettingPosts = (data) => {
-    console.log("this is data", data);
-    try {
-      if (data) {
-        return getPosts(data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    //   if (data) {
-    //     return data.posts.map((post) => (
-    //        <Container className={classes.container}>
-    //       <Post key={post._id} post={post} />
-    //       </Container>
-    //     ));
-    //   } else {
-    //   gettingPosts({ variables: { id: data } });
-    //  console.log("rettriving user posts", gettingPosts);
-    //   data = gettingPosts.data.user;
-    //   }
-  };
+  const classes = useStyles()
+  const { loading, data } = useQuery(QUERY_POSTS)
+  const { user } = useContext(AuthContext)
+  console.log("This is the user!", user)
+  console.log("this is the data", data)
+  // const gettingPosts = (data) => {
+  //   console.log("this is data", data);
+  //   try {
+  //     if (data) {
+  //       return getPosts(data);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   if (data) {
+  //     return data.posts.map((post) => (
+  //        <Container className={classes.container}>
+  //       <Post key={post._id} post={post} />
+  //       </Container>
+  //     ));
+  //   } else {
+  //   gettingPosts({ variables: { id: data } });
+  //  console.log("rettriving user posts", gettingPosts);
+  //   data = gettingPosts.data.user;
+  //   }
+  // };
 
-  gettingPosts();
+  // gettingPosts();
   // const [like, setLike] = useState(post.like);
   // const [isLiked, setIsLiked] = useState(false);
   //   const [state, dispatch] = useContext();
   //   const { loading, data } = useQuery(ADD_POST);
-  // return (
-  //   <Container className={classes.container}>
-  //     <Post title="Explore Utah, discover yourself." img={images.utah} />
-  //   </Container>
-  // );
-};
-
-export default Feed;
-
+  return (
+    <>
+      {loading ? (
+        <h2>Loading...</h2>
+      ) : (
+        data.posts.map((post) => (
+          <Container className={classes.container}>
+            <Post
+              createdAt={post.createdAt}
+              creator={post.creator}
+              likeCount={post.likeCount}
+              message={post.message}
+            />
+          </Container>
+        ))
+      )}
+    </>
+  )
+}
+export default Feed
 // export default function Feed(post) {
-//   const classes = useStyles();
+//     const classes = useStyles();
 //   const [like, setLike] = useState(post.like);
 //   const [isLiked, setIsLiked] = useState(false);
 //   const [state, dispatch] = useContext();
 //   const { loading, data } = useQuery(ADD_POST);
 //  const [addPost, setPost] = useState({
-//     message: "",
+//       message: "",
 //     creator: "",
 //     tags: "",
 //     likeCount: 0,
 //     omments: [],
 //   });
 //   useEffect(() => {
-//     if (data) {
+//       if (data) {
 //       dispatch({
-//         type: "SET_POSTS",
+//           type: "SET_POSTS",
 //         payload: data.posts,
 //       });
 //     }
@@ -132,3 +143,4 @@ export default Feed;
 //   </div>
 // );
 // }
+// export default Feed;

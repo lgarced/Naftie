@@ -15,7 +15,7 @@ const resolvers = {
     },
     posts: async (_, { username }) => {
       // const params = username ? { username } : {};
-      return Post.find().sort({ createdAt: -1 });
+      return Post.find().sort({ createdAt: -1 }).populate("creator");
     },
     post: async (_, { postId }) => {
       return Post.findOne({ _id: postId });
@@ -70,6 +70,7 @@ const resolvers = {
         const newPost = await Post.create(payload);
         // const newPostWithUser = await newPost.populate("creator");
         const newPostWithUser = await Post.findById(newPost._id).populate("creator");
+        console.log("newPostWithUser", newPostWithUser);
         return {success: true, post: newPostWithUser};
       }catch(err){
         console.log(err);

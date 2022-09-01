@@ -81,6 +81,10 @@ const typeDefs = gql`
     post(postId: ID!): Post
     me: User
   }
+  type UserResponse {
+    success: Boolean
+    post: Post
+  }
 
   type Mutation {
     addUser(
@@ -97,7 +101,7 @@ const typeDefs = gql`
       selectedFile: String
       likeCount: Int
       createdAt: Date
-    ): postResponse
+    ): UserResponse
     # addPost(input: [Post!]!): Post
     addComment(postId: ID!, commentText: String!): Comment
     removePost(postId: ID!): Post

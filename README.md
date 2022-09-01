@@ -2,26 +2,33 @@
 
 Naftie is a social media app that allows users to connect with their friends and share content that's on their mind!
 
-By: Liberato Garced, Chase Olshen, Darryl Lee
+
 
 ## Menu
 
 - [Welcome](#welcome)
 
-
+     - [Description](#-description-)
      - [📱 Contact](#-contact-)
+     - [Future-Developments](#-future-developments-)
      - [☁ Cloud](#-cloud-)
      - [⚡ Database](#-database-)
      - [🚀 Frameworks & Library](#-frameworks--library-)
      - [👩‍💻 IDE](#-ide-)
      - [👩‍💻 Languages](#-languages-)
-     - [💻Terminal] (#-terminal-)
+     - [💻Terminal](#-terminal-)
      - [⏱️ Workflow Platforms](#-workflow-platforms-)
      
      
+ ## Description [🔝](#welcome)
+Naftie helps users to connect with each other. Users have the ability to post messages on their feed 
+and comment to posts. They will also have the ability to add each others as friends and send messages.
  ## 📱 Contact [🔝](#welcome)
-
- 
+ Liberato Garced 
+ Chase Olshen
+ ##  Future-Developments [🔝](#welcome)
+ The application still on its early stages but we are hopeful to add new features to the application in the following months
+  
  ## ☁ Cloud [🔝](#welcome)
  
  ## ⚡ Database [🔝](#welcome)
@@ -43,7 +50,3 @@ By: Liberato Garced, Chase Olshen, Darryl Lee
   <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white" />  
 
 
-// DO NOT USE UNLESS CONFIRMED *** 
---openssl-legacy-provider
---openssl-legacy-provider
-BELONG IN PACKAGE.JSON BEFORE THE START AND BUILD SCRIPTS //

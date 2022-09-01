@@ -1,6 +1,8 @@
 ## NAFTIE 
 
+Naftie is a social media app that allows users to connect with their friends and share content that's on their mind!
 
+By: Liberato Garced, Chase Olshen, Darryl Lee
 
 ## Menu
 

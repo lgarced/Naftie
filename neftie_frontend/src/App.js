@@ -54,7 +54,7 @@ function getToken() {
 
      <Routes>
         <Route path="/signup" element={ <SignUp  />}/>
-        <Route path="/" element={ <SignIn setToken={setToken} />} />
+        <Route path="/signin" element={ <SignIn setToken={setToken} />} />
 
     </Routes>
     )

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import './index.css';
 import { makeStyles } from "@material-ui/core";
 import { SignIn, Home, SignUp } from "./components";
+import ChatStart from "./components/ChatStart";
 import decode from "jwt-decode"; 
 import { AuthContext } from "./utils/authContext";
 
@@ -54,6 +55,7 @@ function getToken() {
      <Routes>
         <Route path="/signup" element={ <SignUp  />}/>
         <Route path="/" element={ <SignIn setToken={setToken} />} />
+
     </Routes>
     )
   }
@@ -61,6 +63,7 @@ function getToken() {
   return (
     <Routes>
         <Route exact path={"/"} element={<Home />} />
+        <Route path="/chat" element={ <ChatStart />}/>
     </Routes>
   );
 };

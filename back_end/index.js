@@ -5,6 +5,8 @@ const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schemas/index.js');
 const db = require('./config/connection.js');
 const { authMiddleware } = require("./utils/auth");
+const { Server } = require("socket.io");
+const http = require("http")
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -15,6 +17,32 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
+const ioServer = http.createServer(app)
+
+const io = new Server(ioServer, {
+  cors: {
+    origin: "http://localhost:3000",
+    method: ["GET", "POST"]
+  }
+})
+
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+    socket.join(data)
+    console.log(`User with ID: ${socket.id} joined room: ${data}`)
+  })
+
+  socket.on("send_message", (data) => {
+    console.log(data);
+    socket.to(data.room).emit("receive_message", data)
+  })
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected", socket.id)
+  })
+})
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -25,7 +53,6 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../neftie_frontend/build/index.html"));
 });
-
 
 //FOR TESTING PURPOSES
 app.get("/whoami", (req,res)=> {
@@ -38,7 +65,7 @@ await server.start();
 server.applyMiddleware({ app });
 
     db.once("open", () => {
-      app.listen(PORT, () => {
+      ioServer.listen(PORT, () => {
         console.log(`API server running on port ${PORT}!`);
         console.log(
           `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
@@ -49,6 +76,7 @@ server.applyMiddleware({ app });
 };
 
 startApolloServer(typeDefs, resolvers);
+
 
 
   //This useFindAndModify is causing the error it is deprecated from mongoose version 6

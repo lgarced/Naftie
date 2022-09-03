@@ -135,7 +135,7 @@
 
 const Comment = require('./Comment');
 const Post = require('./Post');
-const User = require('./User');
+const User = require('./user');
 const Messages = require('./Messages');
 const Friends = require('./Friend');
 

@@ -50,6 +50,9 @@ app.use(cors());
 //Problably causing the error
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../neftie_frontend/build/index.html"));
 });

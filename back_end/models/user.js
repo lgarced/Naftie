@@ -1,4 +1,4 @@
-]\// import { Schema, model } from "mongoose"
+// import { Schema, model } from "mongoose"
 // import bcrypt from "bcrypt"
 const { Schema, model } = require("mongoose")
 const bcrypt = require("bcrypt")

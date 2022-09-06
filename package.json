@@ -2,12 +2,12 @@
   "name": "naftie",
   "version": "1.0.0",
   "description": "",
-  "main": "back_end/index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "node back_end/index.js",
-    "develop": "concurrently \"cd back_end && npm run watch\" \"cd client && npm start\"",
-    "install": "cd client && npm i --legacy-peer-deps && cd ../back_end && npm i",
-    "seed": "cd back_end && npm run seed",
+    "start": "node server/index.js",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd client && npm i --legacy-peer-deps && cd ../server && npm i",
+    "seed": "cd server && npm run seed",
     "build": "cd client && npm run build"
   },
   "keywords": [],

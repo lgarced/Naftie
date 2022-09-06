@@ -54,6 +54,10 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 //   app.use(express.static(path.join(__dirname, '../client/build')));
 // }
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
+
 //FOR TESTING PURPOSES
 app.get("/whoami", (req,res)=> {
   res.send("<h1>THIS IS NAFTIE, THE ILLEST SOCIAL MEDIA PLATFORM!</h1>")

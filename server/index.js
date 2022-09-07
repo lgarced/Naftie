@@ -7,6 +7,7 @@ const db = require('./config/connection.js');
 const { authMiddleware } = require("./utils/auth");
 const { Server } = require("socket.io");
 const http = require("http")
+const path = require('path')
 
 const PORT = process.env.PORT || 3001;
 const app = express();

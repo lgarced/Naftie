@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import ChatBox from "./ChatBox";
 import "../assets/chat.css";
 
-const socket = io.connect("http://localhost:3001")
+const socket = io.connect("http://localhost:3007")
 
 export default function ChatStart() {
     const [username, setUsername] = useState("");

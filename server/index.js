@@ -22,7 +22,7 @@ const ioServer = http.createServer(app)
 
 const io = new Server(ioServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3001",
     method: ["GET", "POST"]
   }
 })
@@ -74,7 +74,10 @@ server.applyMiddleware({ app });
 
     db.once("open", () => {
       ioServer.listen(PORT, () => {
-
+        console.log(`API server running on port ${PORT}!`);
+        console.log(
+          `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
+        );
       });
     });
 

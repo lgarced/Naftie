@@ -5,11 +5,11 @@ const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schemas/index.js');
 const db = require('./config/connection.js');
 const { authMiddleware } = require("./utils/auth");
-const { Server } = require("socket.io");
+// const { Server } = require("socket.io");
 const http = require("http")
 const path = require('path')
 
-const PORT = 4010;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 const server = new ApolloServer({
@@ -18,32 +18,32 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
-const ioServer = http.createServer(app)
+// const ioServer = http.createServer(app)
 
-const io = new Server(Server, {
-  cors: {
-    origin: "http://localhost:3001",
-    method: ["GET", "POST"]
-  }
-})
+// const io = new Server(Server, {
+//   cors: {
+//     origin: "http://localhost:3001",
+//     method: ["GET", "POST"]
+//   }
+// })
 
-io.on("connection", (socket) => {
-  console.log(`User connected: ${socket.id}`);
+// io.on("connection", (socket) => {
+//   console.log(`User connected: ${socket.id}`);
 
-  socket.on("join_room", (data) => {
-    socket.join(data)
-    console.log(`User with ID: ${socket.id} joined room: ${data}`)
-  })
+//   socket.on("join_room", (data) => {
+//     socket.join(data)
+//     console.log(`User with ID: ${socket.id} joined room: ${data}`)
+//   })
 
-  socket.on("send_message", (data) => {
-    console.log(data);
-    socket.to(data.room).emit("receive_message", data)
-  })
+//   socket.on("send_message", (data) => {
+//     console.log(data);
+//     socket.to(data.room).emit("receive_message", data)
+//   })
 
-  socket.on("disconnect", () => {
-    console.log("User disconnected", socket.id)
-  })
-})
+//   socket.on("disconnect", () => {
+//     console.log("User disconnected", socket.id)
+//   })
+// })
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

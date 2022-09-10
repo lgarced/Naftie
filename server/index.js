@@ -9,7 +9,7 @@ const { Server } = require("socket.io");
 const http = require("http")
 const path = require('path')
 
-const PORT = process.env.PORT || 3001;
+const PORT = 4010;
 const app = express();
 
 const server = new ApolloServer({
@@ -20,7 +20,7 @@ const server = new ApolloServer({
 
 const ioServer = http.createServer(app)
 
-const io = new Server(ioServer, {
+const io = new Server(Server, {
   cors: {
     origin: "http://localhost:3001",
     method: ["GET", "POST"]
@@ -73,7 +73,7 @@ await server.start();
 server.applyMiddleware({ app });
 
     db.once("open", () => {
-      ioServer.listen(PORT, () => {
+      app.listen(PORT, () => {
         console.log(`API server running on port ${PORT}!`);
         console.log(
           `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`

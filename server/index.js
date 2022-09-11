@@ -65,7 +65,7 @@ app.get("/whoami", (req,res)=> {
 })
 app.get("*", (req, res) => {
   console.log("I was hit!")
-  res.sendFile(path.join(__dirname, "../client/public/index.html"));
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 

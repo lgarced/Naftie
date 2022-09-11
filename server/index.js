@@ -64,7 +64,7 @@ app.get("/whoami", (req,res)=> {
   res.send("<h1>THIS IS NAFTIE, THE ILLEST SOCIAL MEDIA PLATFORM!</h1>")
 })
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../neftie_frontend/build/index.html"));
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 

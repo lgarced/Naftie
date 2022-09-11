@@ -9,7 +9,7 @@ const { authMiddleware } = require("./utils/auth");
 const http = require("http")
 const path = require('path')
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 const server = new ApolloServer({

@@ -63,7 +63,7 @@ function getToken() {
   return (
     <Routes>
         <Route exact path={"/"} element={<Home />} />
-        <Route path="/chat" element={ <ChatStart />}/>
+        {/* <Route path="/chat" element={ <ChatStart />}/> */}
     </Routes>
   );
 };
